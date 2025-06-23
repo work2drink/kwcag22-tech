@@ -36,6 +36,9 @@ export default defineConfig({
                 Head: './src/components/CustomHead.astro',
                 PageFrame: './src/components/CustomPageFrame.astro',
             },
+            customCss: [
+                './src/styles/custom.css'
+            ],
 			sidebar: [
 				{
 					label: '인식의 용이성',

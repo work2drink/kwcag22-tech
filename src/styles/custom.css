@@ -99,3 +99,18 @@ li ul, li ol {
 :root[data-theme='dark'] {
   --sl-icon-invert: 1;
 }
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: url('../assets/light1.png') no-repeat right bottom;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background: url('../assets/dark1.png') no-repeat right bottom;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
