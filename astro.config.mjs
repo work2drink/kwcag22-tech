@@ -10,8 +10,8 @@ import sitemap from '@astrojs/sitemap';
 const commonKeywords = "접근성, 제작기법, KWCAG2.2, accessibility, Korean, A11Y";
 
 export default defineConfig({
-    // site: 'https://nia-kwcag22.github.io/',
-    // base: process.env.NODE_ENV === 'production' ? '/' : '/kwcag22-tech/',
+    site: 'https://work2drink.github.io/kwcag22-tech/',
+    base: process.env.NODE_ENV = '/',
 	integrations: [
         astroExpressiveCode(),
         mdx(),
