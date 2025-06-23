@@ -42,26 +42,36 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: '인식의 용이성',
+                    collapsed: true,
                     autogenerate: { directory: 'perceivable' },
 				},
 				{
                     label: '운용의 용이성',
+                    collapsed: true,
 					autogenerate: { directory: 'operable' },
 				},
                 {
                     label: '이해의 용이성',
+                    collapsed: true,
                     autogenerate: { directory: 'understandable' },
                 },
                 {
                     label: '견고성',
+                    collapsed: true,
                     autogenerate: { directory: 'robust' },
                 },
                 {
                     label: 'KWCAG 이해와 실무 적용',
+                    collapsed: true,
                     items: [
                         { label: 'KWCAG와 WCAG의 관계', slug: 'guides/about' },
                         { label: '실무 적용', slug: 'guides/working-reference' },
                     ],
+                },
+                {
+                    label: '용어집',
+                    collapsed: true,
+                    autogenerate: { directory: 'glossary' },
                 },
 			],
 		}),
