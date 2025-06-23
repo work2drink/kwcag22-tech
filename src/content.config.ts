@@ -3,22 +3,7 @@ import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
 import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 
 const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() });
-// const docs = defineCollection({
-//   loader: docsLoader(),
-//   schema: z.object({
-//     title: z.string(),
-//     description: z.string(),
-//     head: z.array(z.object({
-//       tag: z.string(),
-//       content: z.string(),
-//     })).optional(),
-//     tableOfContents: z.object({
-//       maxHeadingLevel: z.number(),
-//     }).optional(),
-//     lastUpdated: z.string().optional(),
-//     keywords: z.array(z.string()).optional(),
-//   }),
-// });
+
 const i18n = defineCollection({
   loader: i18nLoader(),
   schema: i18nSchema({

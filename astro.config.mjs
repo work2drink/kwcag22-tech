@@ -16,7 +16,7 @@ export default defineConfig({
         astroExpressiveCode(),
         mdx(),
 		starlight({
-            title: '웹 접근성을 고려한 콘텐츠 제작기법2.2',
+            title: '웹 접근성을 고려한 콘텐츠 제작기법 2.2',
             defaultLocale: 'root',
             locales: {
                 root: {
@@ -34,7 +34,7 @@ export default defineConfig({
             social: [{ icon: 'information', label: '원문 사이트', href: 'https://www.kioskui.or.kr/index.do?menu_id=00000976' }],
             components: {
                 // Head: './src/components/CustomHead.astro',
-                // PageFrame: './src/components/CustomPageFrame.astro',
+                PageFrame: './src/components/CustomPageFrame.astro',
             },
 			sidebar: [
 				{
