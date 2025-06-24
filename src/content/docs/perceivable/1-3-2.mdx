@@ -1,0 +1,410 @@
+---
+title: 1.3.2. 콘텐츠의 선형구조
+description: 표는 이해하기 쉽게 구성해야 한다.
+outline: { label:false }
+lastUpdated: 2025-03-31
+---
+import { Aside, Badge, Card } from '@astrojs/starlight/components';
+
+<Aside title="검사 항목">
+콘텐츠는 논리적인 순서로 제공해야 한다.
+</Aside>
+
+## 목적
+콘텐츠의 순서가 의미를 갖는 경우 그 순서가, 화면에 시각적으로 표시된 것과 화면낭독프로그램을 사용하거나 또는 스타일이 제거된 경우에도 동일하게 유지되어야 한다. 이를 통해 사용자가 콘텐츠를 보거나, 듣거나, 또는 스타일 없이 탐색할 때도 내용을 올바른 순서로 이해하고 의도한 정보 전달과 문맥이 정확히 전달되도록 하기 위함이다.
+
+##	배경 및 필요성
+웹 페이지의 콘텐츠는 화면에 보이는 순서가 아닌, HTML 코드에 작성된 순서대로 읽혀진다. 예를 들어, 화면낭독프로그램이나 키보드만 사용하는 사용자는 HTML에 작성된 순서대로 정보를 탐색한다.
+
+HTML 마크업 순서와 화면에 보이는 순서가 일치하면, 사용자는 내비게이션 메뉴, 표 등 콘텐츠의 논리적 흐름과 의미를 정확하게 파악할 수 있다. 예를 들어, 표 같은 경우에 시각적으로는 올바른 행과 열의 순서로 보이더라도, HTML 마크업이 div 요소 등으로 잘못 구성되어 있으면 화면낭독프로그램는 데이터의 열과 행이 연결되지 않아 사용자는 정보를 잘못 이해할 수 있다. 
+
+또한, CSS 스타일이나 레이아웃 변경으로 화면상 시각적인 배열이 달라지더라도, 스타일이 제거된 환경에서는 HTML의 선형구조가 그대로 전달되므로 그 순서가 반드시 유지되어야 한다. 이와 같이 콘텐츠의 선형구조를 유지하면 장애 유무와 관계없이 모든 사용자가 동일한 정보를 올바르게 인식할 수 있다.
+
+##	기본 규칙
+- HTML 문서 내에서 콘텐츠가 논리적 순서대로 배치되도록 마크업한다.
+- 제목, 문단, 리스트, 표 등의 구조적 요소를 올바르게 사용하여 콘텐츠의 계층 구조를 명확하게 표현한다.
+- CSS 스타일이나 레이아웃 변경으로 인해 화면상 보이는 순서가 달라지더라도, HTML의 [선형 구조](../../glossary/linear-structure)는 원래의 논리적 순서를 유지해야 한다.
+- CSS 스타일이 적용되지 않은 환경에서도 콘텐츠가 의도한 순서대로 읽힐 수 있도록 보장해야 한다. 예를 들어, flexbox나 grid와 같은 CSS 속성을 사용하여 레이아웃이나 시각적 배치가 변경되더라도, HTML의 논리적 구조가 유지되며 콘텐츠의 의미와 이해에 영향을 주지 않아야 한다.
+- Javascript 등으로 동적으로 추가되거나 변경되는 콘텐츠의 경우에도, HTML 마크업 순서가 논리적인 흐름을 반영하도록 관리하며, 동적 변화 후에도 [선형 구조](../../glossary/linear-structure)가 유지되는지 반드시 확인한다.
+
+## 적용 사례
+### 1)	페이지의 콘텐츠를 논리적인 순서로 제공
+콘텐츠는 논리적이고 일관된 순서로 제공되어야 하며, 사용자가 맥락을 쉽게 이해할 수 있도록 구성해야 한다. 이를 위해, 화면에 시각적으로 표시되는 콘텐츠 순서와 스타일시트를 제거한 상태에서의 콘텐츠 순서는 내용을 이해하는데 논리적으로 일치하도록 제공해야 한다.
+
+![이미지. 스타일시트를 적용한 화면(왼쪽)과 스타일시트를 제거한 사례 (출처: NIA)](/images/image056.png)
+
+### 2)	레이어 팝업 콘텐츠를 논리적인 순서로 제공
+레이어 팝업에는 [모달 팝업](../../glossary/modal-popup)과 사용자 상호작용에 의해 나타나는 팝업이 있으며, 접근성과 탐색 방식이 다르게 요구된다.
+
+#### a)	홈페이지 진입 시 나타나는 [모달 팝업](../../glossary/modal-popup)
+사용자가 페이지에 처음 접근했을 때 자동으로 표시되는 팝업은 가장 먼저 탐색할 수 있도록, HTML 내 body 요소 내부 최상단에 배치하는 것이 바람직하다.
+또한, [모달 팝업](../../glossary/modal-popup)(modal)으로 제공된 경우, 사용자가 팝업 콘텐츠에만 집중할 수 있도록 팝업 외의 다른 콘텐츠가 탐색되지 않도록 해야 한다. 이를 위해 `role="dialog"`, `aria-modal="true"`, `aria-hidden="true"` 등 ARIA 속성을 활용하여 접근성을 향상시킬 수 있다. 이러한 구현을 통해 키보드 사용자와 화면낭독프로그램 사용자가 팝업에 바로 접근하여 탐색하고 조작할 수 있도록 한다.
+
+![이미지. 문서 최상단에 제공된 모달 팝업 사례 (출처: NIS)](/images/image057.png)
+
+```html
+<body>
+<!-- [모달 팝업](../../glossary/modal-popup) -->
+<div role="dialog" aria-modal="true" aria-labelledby="pop_tit">
+  <div class="popup-wrapper">
+    <p class="invisible" id="popup_title">팝업존</p>
+    <div class="popup-content" id="popup_content"> ... </div>
+  </div>
+</div>
+<!-- 본문 -->
+<ul class="skip-navigation"> ... </ul>
+<div class="wrapper" id="doc">
+...
+</div>
+```
+
+### b)	사용자와의 상호작용에 의해 나타나는 팝업
+사용자가 콘텐츠를 탐색하다가 버튼 실행 등의 상호작용으로 [레이어 팝업](../../glossary/layer-popup)이 나타나는 경우, 시각적 배치뿐만 아니라 HTML 내 논리적 흐름도 고려하여 [레이어 팝업](../../glossary/layer-popup) 콘텐츠를 실행한 버튼 다음 위치에 배치해야 한다.
+
+이와 같이, 화면낭독프로그램 사용자가 팝업 레이어를 자연스럽게 탐색할 수 있도록, 해당 레이어를 활성화하는 요소 바로 뒤에 위치해야 한다. 이렇게 구현하면 키보드 및 보조 기술 사용자가 예상한 흐름대로 접근할 수 있어 탐색이 원활해진다.
+
+![이미지. ‘통합검색’ 버튼을 실행 시 나타나는 레이어 팝업 사례 (출처: 11번가)](/images/image058.png)
+
+```html
+<div class="c_gnb_search_listbox">
+  <span class="sr-only" id="ar-listbox-label">통합검색 선택</span>
+  <button id="total_search-btn" type="button" ...>통합검색</button>
+  <ul id="ar-listbox-list" role="listbox" ...>
+    <li id="aria-option1" role="option" ...>통합검색</li>
+    <li id="aria-option3" role="option" ...>쇼킹딜</li>
+    <li id="aria-option4" role="option" ...>가격비교</li>
+    <li id="aria-option6" role="option" ...>아마존</li>
+  </ul>
+</div>
+...
+```
+
+### c)	사용자와의 상호작용에 의해 나타나는 [모달 팝업](../../glossary/modal-popup)
+모달 팝업이 사용자와의 상호작용에 의해 활성화된 경우에도, 팝업 외 다른 콘텐츠가 탐색되지 않도록 해야 한다. [모달 팝업](../../glossary/modal-popup)은 팝업 내부 콘텐츠만 탐색할 수 있도록 설계되어야 하며, 단독으로 실행되는 것과 같은 환경을 제공해야 한다. 따라서 HTML 내 마크업 위치는 상대적으로 자유롭지만, 키보드 조작, 논리적인 초점 이동 순서를 반드시 고려해야 한다. 이를 구현하기 위해 `role="dialog"`, `aria-modal="true"`, `aria-hidden="true"` 등 ARIA 속성을 활용할 수 있다.
+
+![이미지. ‘더보기(+)’ 버튼 실행 시 나타나는 상세 설명 모달 팝업 사례 (출처: 카카오)](/images/image059.png)
+
+```html
+<div class="container-doc">
+  <header class="doc-header"> ... </header>
+  <main class="doc-main"> ... </main>
+  <footer class="doc-footer"> ... </footer>
+  <!-- 설명 [모달 팝업](../../glossary/modal-popup) -->
+  <div class="detail_layer" role="dialog">
+    <div class="inner_layer">
+      <button aria-describedby="titleLayer">닫기</button>
+    </div>
+    <div class="layer_body">
+      <h2 id="titleLayer" class="tit_layer">재생에너지 확대</h2>
+      <p class="desc_layer">카카오는 23년 'RE100'에 가입하여 ...</p>
+    </div>
+  </div>
+</div>
+```
+
+### 3)	목록 구조 콘텐츠를 논리적인 순서로 제공 
+목록 구조의 콘텐츠는 계층 구조를 유지하며 시각적으로 배치된 순서와 동일한 순서로 제공해야 한다. 
+#### a)	순서가 없는 목록 콘텐츠를 논리적인 순서로 제공
+다음은 순서가 없는 배너 목록 콘텐츠의 제공 사례이다. ul과 li 요소를 사용하여 배너 목록 콘텐츠임을 알 수 있게 마크업하며, 순서는 시각적 순서와 일치하도록 한다.
+
+![이미지. 순서가 없는 배너 목록 사례 (출처: 11번가)](/images/image060.png)
+
+```html
+<h2 class="c-headline_title">오늘의 브랜드</h2>
+<ul class="c-list_container">
+<li class="c-list_item"><img ... alt="신선한 먹거리..."></li>
+  <li class="c-list_item"><img ... alt="맛있는 한끼..."></li>
+  <li class="c-list_item"><img ... alt="전 상품 무료배송 99..."></li>
+  <li class="c-list__item"><img ... alt="홈즈 취향&amp;감성..."></li>
+  <li class="c-list__item"><img ... alt="멤버십 0원 오늘주 ..."></li>
+  <li class="c-list__item"><img ... alt="한정수량 리퍼특가"></li>
+</ul>
+```
+
+### b)	순서가 있는 목록 콘텐츠를 논리적인 순서로 제공
+다음은 순서가 중요한 목록 콘텐츠의 제공 사례이다. 순서가 중요한 목록은 순서를 명확히 전달할 수 있도록 ol과 li 요소를 사용하여 마크업한다.
+
+![이미지. 순서가 중요한 민원사무 처리절차 목록 사례 (출처: 경기도경제과학진흥원)](/images/image061.png)
+
+```html
+<h3>민원사무의 처리절차</h3>
+<img src="..." alt="민원사무 처리절차. 내용은 다음 텍스트에서 설명">
+<ol class="visually-hidden">
+<li>
+  <dl><dt>민원접수 (주관부서)</dt>...</dl>
+</li>
+<li>
+    <dl><dt>처리부서.지정.이송 (해당부서)</dt>...</dl>
+</li>
+  <li>
+    <dl><dt>검토 (해당부서)...</dl>
+  </li>
+  <li>
+    <dl><dt>결제 (해당부서)...</dl>
+  </li>
+  <li>
+    <dl><dt>민원회신 (해당부서)</dt>...</dl>
+  </li>
+</ol>
+```
+
+### c)	계층 구조를 논리적으로 순서로 제공
+다음은 계층 구조가 있는 콘텐츠는 상위 및 하위 항목의 관계를 명확히 표현해야 하며, 이를 위해 목록 요소를 중첩하여 표현한다.
+
+![이미지. 계층 구조를 가진 조직도 사례 (출처: 하남시 보건소)](/images/image062.png)
+
+```html
+<ul class="depth1">
+<li class="depth1_item">
+    <a href="#m" class="popup_open">소장</a>
+    <ul class="depth2 >
+      <li class="depth2_item n1">
+        보건정책과
+        <ul class="depth3 clearfix">
+          <li class="depth3_item">보건의료정책팀</li>
+          <li class="depth3_item">감염병대응팀</li>
+          ...
+        </ul>
+      </li>
+      <li class="depth2_item n1">
+        건강증진과
+        <ul class="depth3 clearfix">
+          <li class="depth_item">건강정책팀</li>
+          <li class="depth3_item">건강증진팀</li>
+          ...
+        </ul>
+      </li>
+      ...
+```
+
+## 개선 필요 사례
+
+### 1)	논리적이지 않은 순서로 제공된 메인 [레이어 팝업](../../glossary/layer-popup)
+홈페이지에 처음 접속하면 [레이어 팝업](../../glossary/layer-popup)이 화면 중앙 정면에 표시되지만, HTML 내에서는 body 요소 내 중간에 위치한 사례이다.
+
+화면낭독프로그램 사용자는 문서의 앞부분을 먼저 읽기 후, 중간에 [레이어 팝업](../../glossary/layer-popup) 내용을 제공받게 된다. 이는, 저시력 사용자가 화면을 보면서 화면낭독프로그램을 보조 수단으로 사용하는 경우, [레이어 팝업](../../glossary/layer-popup)에 일부 콘텐츠가 가려진 채 정보를 전달받아 정확한 내용을 인식하기 어려울 수 있다. 
+
+![이미지. 처음 접근 시 화면 중앙에 나타나는 레이어 팝업 사례](/images/image063.png)
+
+```html {7-9}
+<body>
+  <div class="main_wrap">
+    <div id="u_skip"> ... </div>
+    <div class="evt_area on"> ... </div>
+    <div class="header_wrap"> ... </div>
+    <nav id="nav_drawer"> ... </nav>
+    <div class="container_wrap"> ... </div>
+    <div class="insert_popup"> ... <!-- 팝업 콘텐츠 --> ... </div>
+    <div class="todaymov_wrap"> ... </div>
+    <div id="footer"> ... </div>
+</div>
+</div>
+...
+```
+
+#### 개선 방법
+시각적 순서와 동일하게 사용자가 가장 먼저 팝업에 접근하고 제어할 수 있도록, HTML 문서의 body 요소 상단에 먼저 배치하여 작성한다.
+
+### 1)	계층 구조를 논리적이지 않은 순서로 제공
+조직도를 다이어그램으로 사용하여 시각적으로 계층 구조를 나타내고 있다.
+그러나 HTML 마크업이 계층 정보를 전달하지 못하는 div, span 요소들로 구성되어 있어, 화면낭독프로그램 사용자는 조직의 계층 구조 정보를 인식하기 어렵다.
+
+![이미지. 조직도와 계층 구조 정보를 전달하지 못하는 사례](/images/image064.png)
+
+```html
+<div class="map">
+  <span class="blind">대학교 National University</span>
+  <a href="..." class="link1">총장</a>
+  <a href="..." class="link2">이사회</a>
+  <a href="..." class="link3">총장실</a>
+  <a href="..." class="link4">교육부총장결 대학원장</a>
+  ...
+</div>
+```
+#### 개선 방법
+계층 구조를 표현할 때는 ol, ul, li 등의 목록 요소를 중첩하여 상위 항목과 하위 항목의 관계를 표현하도록 한다.
+```html
+<div class="map visually-hidden">
+  <h3>대학교 National University</h3>
+  <ul>
+    <li>
+      <a href="…" class="link1">총장</a>
+      <a href="…" class="link3">총장실</a>
+      <ul>
+        <li><a href="…" class="link4">교육부총장결 대학원장</a></li>
+        <li><a href="…" class="link5">연구부총장</a></li>
+        <li>
+          <a href="…" class="link6">기획부총장</a>
+          <a href="…" class="link7">대학혁신센터</a>
+        </li>
+      </ul>
+    </li>
+    <li><a href="…" class="link2">이사회</a></li>
+  </ul>
+  ...
+  <a href="…" class="link9"> 감사</a>
+</div>
+```
+
+### 3)	순서가 있는 목록 콘텐츠를 논리적이지 않은 순서로 제공
+절차의 순서가 중요한 정보임에도 불구하고 각 단계가 설명을 의미하는 dl 요소로 작성되어 있어, 화면낭독프로그램 사용자는 절차가 아닌 각 단계별 설명으로만 정보를 전달받게 된다.
+
+![이미지. 민원 처리 절차 순서도 사례](/images/image065.png)
+
+```html
+<div class="cmp-flow">
+  <dl><dt>민원등록</dt></dl>
+  <dl><dt>민원확인</dt>
+  <dd><ul><li>수시확인 : 1일 3회 이상</li></ul>
+      <ul>
+        <li><p>문제점 <br>파악</p></li>
+        <li><p>민원인과 전화통화로 파악</p></li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>처리 방향 협의</dt>
+    <dd><ul><li>민원 담당자와 업무 관련 담당자</li></ul></dd>
+</dl>
+  <dl>
+    <dt>처리 방향 협의</dt>
+    <dd><ul><li>민원 담당자와 업무 관련 담당자</li></ul></dd>
+  </dl>
+  <dl>
+    <dt>답변자료<br>결제</dt>
+    <dd><ul><li>이사장<br>결제</li></ul></dd>
+  </dl>
+  <dl>
+    <dt>답변 등재</dt>
+    <dd><ul><li class="blu">24시간 이내 답변 등록</li></ul></dd>
+  </dl>
+  ...
+</div>
+```
+
+#### 개선 방법
+전체 민원 처리 절차의 순서 정보가 올바르게 전달되도록 ol, li 목록 요소를 사용하여 작성하고, 단계 간의 세부 단계는 목록을 중첩하여 구조적으로 표현한다.
+```html
+<ol class="cmp-flow">
+  <li>민원등록</li>
+  <li>민원확인 (수시확인 : 1일 3회 이상)
+    <ul>
+      <li>문제점 파악 - 민원인과 전화통화로 파악</li>
+    </ul>
+  </li>
+  <li>처리 방향 합의 (민원 담당자와 업무 관련 담당자)</li>
+  <li>
+    <ul>
+      <li>답변자료 결제</li>
+      <li>이사장 결제</li>
+    </ul>
+  </li>
+  <li>답변 등재</li>
+  ...
+</ol>
+```
+
+### 4)	논리적이지 않은 순서로 제공된 콘텐츠
+로그인 폼의 사례로, HTML 마크업 순서가 ‘아이디 입력 > 비밀번호 입력 > 로그인 버튼 > 아이디 저장 체크박스’ 의 순으로 작성되어 있어, 화면낭독프로그램 사용자는 ‘아이디 저장’ 기능을 미처 인식하지 못하고 지나칠 가능성이 높다.
+
+![이미지. 아이디 저장 기능을 제공하는 로그인 폼 예시](/images/image066.png)
+```html
+<div class="login-contatner">
+  <div>
+    <label for="id">아이디</label>
+    <input type="text" id="id">
+</div>
+  <div>
+    <label for="pw" class="form-label">비일번호</label>
+    <input type="password" id="pw" placeholder="비일번호를 입력하세요">
+  </div>
+  <button type="button">로그인</button>
+  <div>
+    <input type="checkbox" id="remember">
+    <label for="remember">아이디 저장</label>
+  </div>
+</div>
+```
+
+#### 개선 방법
+로그인 전에 ‘아이디 저장’ 기능을 인지할 수 있도록 HTML을 논리적인 순서로 작성하고, 시각적 배치는 CSS를 활용하여 조정한다. 이렇게 하면 보조 기술 사용자가 필수 기능을 놓치지 않고 논리적인 흐름에 따라 탐색할 수 있다.
+```html
+<div class="login-contatner">
+  <div>
+    <label for="id">아이디</label>
+    <input type="text" id="id">
+  </div>
+<div>
+    <label for="pw" class="form-label pw-label">비일번호</label>
+    <input type="password" id="pw" placeholder="비일번호를 입력하세요">
+  </div>
+  <div>
+    <input type="checkbox" id="remember">
+    <label for="remember">아이디 저장</label>
+  </div>
+  <button type="button">로그인</button>
+</div>
+```
+
+### 5)	표 구조를 논리적이지 않은 순서로 제공
+다음 공지사항 게시판은 시각적으로는 표 형태처럼 보이지만, 실제 HTML 마크업은 `div`, `span`, `ul`, `li` 등의 요소로 구성되어 있다. 이로 인해, 화면낭독프로그램 사용자는 게시판 목록의 행과 열 간의 관계를 인식할 수 없고, 단순한 순차적 정보만 제공받게 된다.
+
+예를 들어, ‘315, 제 11기 부산광역시지체장애인협회장 선임 공고, 2024.11.25, 96, 316, 2025 부산장애인종합예술제 개최 및 참가 안내...’같이 숫자와 텍스트 정보가 단순히 나열될 뿐, 각 숫자가 무엇을 의미하는지 연결되지 않아 화면낭독프로그램 사용자는 내용을 이해하기 어렵다.
+
+![이미지. 표 구조 정보를 전달하지 못하는 공지사항 게시판 사례](/images/image067.png)
+
+```html
+<div class="list—board">
+<div class=”div-head”> 
+    <span class="wr-num">번호</span>
+    <span class="wr-tit">제목</span>
+    <span class="wr-name">이름</span>
+    <span class="wr-date">날짜</span>
+    <span class="wr-hit">조회</span>
+  </div>
+  <ul class="list-body">
+    <li class="list-num">315</li>
+    <li class="list-tit">제11기 부산광역시~~</li>
+    <li class="list-name">지장협부산</li>
+    <li class="list-date">2024.11.25</li>
+    <li class="list-hit">96</li>
+    <li class="list-num">316</li>
+    <li class="list-tit">2024년 부산장애인~~</li>
+    ...
+  </ul>
+</div>
+```
+
+#### 개선 방법
+공지사항 목록이 실제 표 구조를 가지도록 `table`, `th`, `td` 요소를 사용하여 마크업한다.
+
+이렇게 하면 화면낭독프로그램이 표의 행과 열 관계를 올바르게 인식하여, 사용자에게 데이터의 맥락과 관계를 전달할 수 있다.
+```html
+<table class="list—board">
+  <thead>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>이름</th>
+      <th>날짜</th>
+      <th>조회</th>
+    </tr>
+</thead>
+  <tbody>
+    <tr>
+      <td>315</td>
+      <td>제11기 부산광역시~~</td>
+      <td>지장협부산</td>
+      <td>2024.11.25</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <td>316</td>
+      <td>2024년 부산장애인~~</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table>
+```
