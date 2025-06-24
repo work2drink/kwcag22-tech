@@ -1,0 +1,194 @@
+---
+title: 2.1.1. 키보드 사용 보장
+description: 모든 기능은 키보드만으로도 사용할 수 있어야 한다.
+outline: { label:false }
+lastUpdated: 2025-03-31
+draft: true
+---
+import { Aside, Badge, Card } from '@astrojs/starlight/components';
+
+<Aside title="검사 항목">
+모든 기능은 키보드만으로도 사용할 수 있어야 한다.
+</Aside>
+
+## 목적
+웹 콘텐츠의 모든 기능을 키보드만으로도 사용할 수 있도록 보장하여, 장애가 있는 사용자뿐만 아니라 마우스 사용이 어려운 모든 사용자도 웹 콘텐츠를 원활하게 이용할 수 있도록 한다.
+
+##	배경 및 필요성
+웹 콘텐츠를 사용할 때, 마우스를 사용할 수 없는 사용자들은 키보드를 통한 접근이 필수적이다.
+
+예를 들면, 시각장애로 인해 화면낭독프로그램을 사용하는 사용자, 지체장애로 인해 마우스 조작이 어려운 사용자, 손목 골절과 같은 일시적인 손상으로 인해 마우스 사용이 어려운 사용자 모두가 키보드를 통한 접근이 가능해야 한다.
+
+키보드만으로 콘텐츠를 사용할 수 없는 경우, 이러한 사용자들은 웹 콘텐츠에 접근하지 못하거나 특정 기능을 사용할 수 없게 된다. 예로, 키보드로 조작할 수 없는 버튼, 메뉴, 폼 요소 등이 존재하면 서비스 이용이 불가능해질 수 있다.
+
+또한, 키보드 조작을 선호하는 사용자도 키보드로 접근할 수 없는 웹 콘텐츠에서 동일한 불편과 제약을 경험한다. 장애가 없는 사용자라 하더라도 터치패드 고장과 같은 하드웨어 문제로 인해 일시적으로 마우스를 사용할 수 없는 상황이 발생할 수 있다.
+
+##	기본 규칙
+- 모든 상호작용 요소(링크, 버튼, 입력란 등)는 기본적으로 키보드 초점을 받을 수 있는 a, button, input 등의 HTML 기본 요소로 구현한다.
+- 마우스 이벤트와 동일한 기능을 수행하도록, onclick 이벤트를 키보드 이벤트(keydown 또는 keyup)와 함께 처리한다.
+- 커스텀 UI 컴포넌트(사용자가 정의한 버튼, 콤보박스, 스위치 등)는 키보드 초점 접근이 가능하도록 설정하고, 키보드 이벤트 핸들러를 추가하여 키보드로도 작동하도록 구현한다. 이때, 기본 HTML 요소의 키보드 동작 방식을 따라서 구현한다. 
+- 마우스를 올리면(hover) 작동하는 경우, 키보드 초점(focus)을 받았을 때도 동일한 기능이 수행되도록 구현한다.
+- 실제 키보드만 사용하여 Tab/Shift+Tab 키로 웹 페이지 전반의 탐색, 입력, 상호작용을 테스트하고, 키보드 전용 사용자도 모든 기능에 접근할 수 있는지 확인한다.
+- 키보드 함정(keyboard trap)이 발생하지 않도록 한다.
+
+## 적용 사례
+
+### 1)	키보드 초점을 받을 수 있는 HTML 기본 요소 사용
+사용자와 상호작용을 하는 링크, 버튼, 입력폼 등은 a, button, input 등 HTML 기본 요소로 구현한다. 이러한 요소들은 기본적으로 키보드 초점을 받을 수 있어 키보드 접근이 가능하며, Tab 키를 눌러 요소 간 이동이 가능하다.
+
+```html
+<!-- 상호작용 가능한 주요 HTML요소 예 -->
+<a href="https://www.kioskui.or.kr/index.do">무인정보단말기UI플랫폼</a>
+<button type="button">확인</button>
+<input type="button" value="확인">
+<input type="text">
+<input type="checkbox" id="apple" name="사과">
+<input type="radio">
+<input type="file">
+<input type="password">
+<select name="pets" id="pet-select">
+	<option value="dog">강아지</option>
+	<option value="cat">고양이</option>
+	...
+</select>
+<textarea id="story" name="story" rows="5" cols="30">
+	내용을 작성해 주세요.
+</textarea>
+```
+### 2)	마우스와 키보드로 모두 조작할 수 있는 기능 제공
+마우스와 같은 포인터로 접근 가능한 기능은 키보드로도 접근할 수 있어야 한다. 마우스를 올리면(hover) 보이거나 실행되는 버튼이나 메뉴는 키보드 초점을 받았을 때도 보이거나 실행되어야 한다. 참고로 툴팁은 보조 기술 지원을 고려하여 실행 요소와 설명문을 aria-describedby로 연결해 줄 수 있다.
+```css
+.share:hover + .share_tooltip,
+.share:focus + .share_tooltip {
+    display: block;
+}
+```
+```html
+<button class="share" aria-describedby="share-guide">공유</button>
+<div id="share-guide" class="share__tooltip" role="tooltip">
+	공유 기능으로 널리 퍼뜨려보세요! 모두에게 도움이 될거에요!
+</div>
+```
+또한, 클릭 또는 터치 기능이 있다면 키보드로도 동등한 기능을 이용할 수 있어야 한다. 클릭 또는 터치 이벤트와 키보드 이벤트에 함께 대응하는 onclick과 같은 이벤트 핸들러를 사용하여 기능을 실행할 수 있도록 구현한다.
+```html
+<button type="button" onclick="uploadFile()">
+	<img src="submit.png" alt="파일 업로드">
+</button>
+```
+마우스를 가져가면 이미지 미리보기가 보이고 벗어나면 닫히는 사례를 키보드로도 동일하게 마우스 이벤트(mouseover, mouseout)와 키보드 초점 이벤트(focus, blur)로 동작하도록 구현할 수 있다.
+```html
+<input type="button" value="미리보기" id="previewButton">
+<script>
+    ...
+    const button = document.getElementById("previewButton");
+    // 마우스 이벤트
+    button.addEventListener("mouseover", () => process("true", "on"));
+    button.addEventListener("mouseout", () => process("false", "off"));
+    // 키보드 이벤트 (onfocus = hover 기능, onblur = mouseout 기능)
+    button.addEventListener("focus", () => process("true", "on"));
+    button.addEventListener("blur", () => process("false", "off"));
+</script>
+```
+
+### 3)	키보드로도 사용 가능한 사용자 정의 UI 컴포넌트
+HTML의 기본 콤보박스(select), 입력폼(input) 등의 요소가 아닌, 사용자 정의 UI 컴포넌트(예: 콤보박스, 스위치 버튼, 슬라이더 등)도 키보드로 탐색하고 상호작용을 할 수 있도록 구현해야 한다.
+
+이를 위해 각 컴포넌트는 Tab 키로 초점을 받을 수 있어야 하며, Enter 또는 Space 키를 눌렀을 때 특정 기능이 실행되도록 해야 한다.
+
+키보드 초점을 받을 수 없는 요소에는 tabindex="0"을 부여하여 초점 이동을 가능하게 하고, keydown 이벤트를 추가하여 키보드 입력(키보드 인터페이스)으로도 동일한 기능이 실행될 수 있도록 구현해야 한다. 이때, 키보드 조작 방식은 HTML 기본 요소의 동작 방식을 참고하여 일관되게 적용해야 한다. 
+
+추가로, ARIA 속성을 사용하여 UI의 역할과 상태 정보를 보조 기기에 전달될 수 있게 제공해야 한다.
+
+![이미지. 사용자 정의 스위치 UI 예시](/images/image123.png)
+
+```html
+<span
+    role="switch"
+    aria-checked="false"
+    tabindex="0"
+    onclick="handleClickSwitchBtn()"
+    onkeydown="handleKeyDownSwitchBtn()">
+    <span class="label"></span>
+    <span class="switch"><span></span></span>
+    <span class="status" aria-hidden="true">켬</span>
+</span>
+```
+
+<Card title="참고. 상호작용 가능한 요소의 키보드 조작에 대해" icon="open-book">
+상호작용 가능한 HTML 기본 요소의 키보드 조작 방식의 일부는 다음과 같다.
+- 라디오 버튼: name 값이 동일한 여러 개의 라디오 버튼은 위(↑), 아래(↓), 왼쪽(←), 오른쪽(→) 방향키로 탐색할 수 있다.
+- 체크박스: Space 키를 눌러 선택/해제할 수 있다.
+- 콤보박스(select 요소)
+	- Enter 또는 Space 키를 눌러 목록을 펼칠 수 있다.
+	- 펼쳐진 목록은 위(↑), 아래(↓) 방향키로 탐색할 수 있다.
+	- Enter 키를 눌러 원하는 항목을 선택하면, 목록이 자동으로 닫힌다.
+	- Esc 키를 눌러 펼쳐진 목록을 닫을 수 있다.
+- 탭(Tab UI)
+	- 탭 목록은 왼쪽(←), 오른쪽(→) 방향키로 탐색할 수 있다.
+	- 탭 목록을 탐색하는 중 Tab 키를 누르면, 선택된 탭 패널로 이동한다.
+</Card>
+
+## 개선 필요 사례
+
+### 1)	키보드에는 대응하지 않는 CSS 효과
+하위 메뉴가 마우스 :hover 상태에서만 펼쳐지는 경우, 키보드 사용자나 화면낭독 프로그램 사용자는 해당 하위 메뉴를 열 수 없다.
+```css
+.category-btn > a {
+    display: block;
+    margin-top: 73px;
+    ...
+}
+.category-btn:hover .category-layer {
+    height: auto;
+    display: block;
+    ...
+}
+```
+
+#### 개선 방법
+키보드로도 메뉴를 펼칠 수 있도록 `:focus` 스타일을 추가하거나, Javascript 이벤트 핸들러를 메뉴 실행 시 펼쳐지도록 구현한다.
+
+### 2)	초점을 받을 수 없어 키보드로 접근할 수 없는 버튼
+img 요소에 직접 click 이벤트만 등록되어 있으면, 해당 요소는 키보드 초점을 받을 수 없으므로 Tab 키로 접근할 수도 없고, 키보드로 실행할 수도 없다.
+
+![이미지. img 요소로 구현된 버튼 사례](/images/image124.png)
+```html
+<div class="join__btns">
+    <img src="…" alt="취소" class="join_bt" onclick="cancelJoin()">
+    <img src="…" alt="가입" class=" btn-submit" onclick="join()">
+</div>
+```
+#### 개선 방법
+img 요소를 키보드 초점을 받을 수 있는 HTML 기본 요소인 button 요소로 구현한다.
+
+어떠한 이유로 button 요소를 사용할 수 없다면, 다음과 같은 추가 작업이 필요하다. img 요소에 초점을 받을 수 있도록 tabindex="0"을 추가하고, 버튼임을 알리기 위해 role="button"을 설정한다. 그리고 keyup 이벤트를 추가하여 Enter 및 Space 키 입력 시 실행 가능하도록 설정한다. 
+
+그러나 button 요소를 사용하면 별도의 키보드 이벤트를 추가할 필요 없이 접근성이 기본적으로 보장되므로, 개발 과정에서의 복잡성을 줄이고 유지보수가 쉬워진다.
+
+```html
+<img src="..." class="..." alt="가입" tabindex="0" role="button">
+```
+
+### 3)	tabinedex=”-1”로 키보드 접근을 제한하였으나 화면낭독프로그램에서 접근되는 사례
+tabindex="-1"은 키보드 Tab 키로 초점 이동이 불가능하지만, 화면낭독프로그램에서는 순차 탐색을 통해 해당 요소를 읽을 수 있어 접근이 가능하다. 따라서, 개발자가 의도적으로 키보드 초점에서 제외하려 했지만, 보조 기기 사용자에게는 노출되는 모순이 발생할 수 있다.
+
+화면에 보이지 않게 숨긴 콘텐츠 내 tabindex="-1"이 적용된 버튼은 Tab 키로 이동할 수 없지만, 화면낭독프로그램 사용자는 탐색하고 실행이 가능하다. 결과적으로 키보드 사용자는 버튼을 조작할 수 없지만, 화면낭독프로그램 사용자는 접근 가능하여 일관되지 않은 사용자 경험이 발생한다.
+
+```html
+<div style="opacity:0">
+    <p>이 항목은 중요한 정보를 포함하고 있습니다.</p>
+    <button tabindex="-1">설정</button>
+</div>
+```
+
+#### 개선 방법
+화면에서 숨겨야 하는 경우, 보조 기술에서도 접근하지 못하도록 opacity:0 대신 display:none 속성을 적용한다.
+
+부득이하게 display:none을 사용할 수 없는 경우, aria-hidden="true"를 적용하여 보조 기기의 접근을 막는다. 이때, aria-hidden 속성은 상호작용 요소에 직접 적용할 수 없으며, 대상을 감싸는 부모 요소에 적용해야 한다.
+
+```html
+<div style="opacity:0" aria-hidden="true">
+    <p>이 항목은 중요한 정보를 포함하고 있습니다.</p>
+    <button tabindex="-1">설정</button>
+</div>
+```
