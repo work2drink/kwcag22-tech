@@ -79,6 +79,19 @@ li ul, li ol {
   font-size: 1.2rem;
 }
 
+.content-panel figure {
+  padding-top: 2rem;
+  text-align: center;
+}
+.content-panel figure img {
+  display: inline;
+}
+.content-panel figure.row-half img {
+  display: inline-block;
+  width: 48%;
+  vertical-align: middle;
+}
+
 /* src/styles/custom.css */
 .external-link::after {
   content: '';
@@ -110,12 +123,3 @@ li ul, li ol {
   background-attachment: fixed;
 }
 
-/* sub page */
-figure.row-images img {
-	display: inline-block;
-}
-figure.row-half img {
-  display: inline-block;
-  width: 48%;
-  vertical-align: middle;
-}

@@ -126,3 +126,22 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 만약 사용자 정의 컴포넌트를 사용해야 한다면, `role="listbox"`와 `role="option"`을 사용해 보조 기술이 이를 선택 가능한 옵션으로 인식하도록 하고, 열림/닫힘 상태 정보를 `aria-expanded` 등의 ARIA 속성을 통해 제공해야 한다. 또한, 키보드로 탐색할 수 있도록 방향키, `Enter` 키, `Space` 키 등의 적절한 키보드 탐색을 구현해야 한다.
 
+<Card title="참고. WAI-ARIA를 사용하기 전에 알아야 할 것들" icon="open-book">
+WAI-ARIA는 웹 접근성을 높이기 위한 강력한 도구이지만, 올바르게 사용하지 않으면 오히려 접근성을 저하시킬 수 있다. 따라서 다음 사항을 반드시 확인하고 활용해야 한다.
+
+- **나쁜 ARIA 보다 ARIA가 없는 것이 낫다.**<br/>
+기본 HTML만으로 접근성을 충분히 제공할 수 있다면 WAI-ARIA를 사용하지 않는다. 예를 들어, 버튼은 `<div role="button">`이 아닌, 키보드 접근성과 클릭 이벤트를 제공하는 button 요소를 사용한다.
+- **WAI-ARIA는 보조기기를 위한 정보 제공 도구임을 이해한다.**<br/>
+aria-*와 role 속성은 시각적 스타일이나 동작을 변경하지 않으며, 보조 기술과의 소통을 돕는 역할만 한다. `<div role="button">`은 보조 기술에서 버튼으로 인식되지만, 키보드 접근성은 제공하지 않는다. 이 때, 초점을 받을 수 있도록 하려면 tabindex="0"을 추가해야 한다. 
+- **aria-hidden은 신중하게 사용해야 한다.**<br/>
+aria-hidden="true"는 보조 기술이 해당 요소를 무시하도록 한다. 따라서 링크, 버튼, 입력란과 같이 상호작용이 필요한 요소에는 사용하지 않는다. 숨겨진 요소가 다시 표시될 경우 aria-hidden=”false”로 변경해야 한다. 
+만약, 숨겨진 콘텐츠가 초점을 받지 않도록 해야 한다면 tabindex="-1"을 함께 적용해야 한다.
+- **실제 환경에서 반드시 테스트한다.**<br/>
+WAI-ARIA를 적용한 콘텐츠는 실제 보조 기술 환경에서 반드시 테스트해야 한다. 특정 브라우저나 보조 기기에서 예상과 다르게 동작할 수 있으며, 지원하지 않는 기능이나 버그가 존재할 수 있다. 
+
+자세한 내용은 앞서 소개한 W3C의 [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/)를 참조한다.
+
+##### 참고자료
+- [ARIA in HTML](https://www.w3.org/TR/html-aria/)
+- [Using ARIA](https://www.w3.org/TR/using-aria/)
+</Card>

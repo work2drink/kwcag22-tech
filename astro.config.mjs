@@ -63,10 +63,7 @@ export default defineConfig({
                 {
                     label: 'KWCAG 이해와 실무 적용',
                     collapsed: true,
-                    items: [
-                        { label: 'KWCAG와 WCAG의 관계', slug: 'guides/about' },
-                        { label: '실무 적용', slug: 'guides/working-reference' },
-                    ],
+                    autogenerate: { directory: 'guides' },
                 },
                 {
                     label: '용어집',
