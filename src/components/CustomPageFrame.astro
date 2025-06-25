@@ -33,7 +33,7 @@ else if (props.entry?.data?.headings && props.entry.data.headings.length > 0) {
 const baseDiscussionUrl = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/discussions/new?category=${categoryParam}`;
 ---
 
-<Default {...props}>
+<Default {...props} bodyClass={isHomePage ? 'home' : ''}>
   <slot name="header" slot="header" />
   <slot name="sidebar" slot="sidebar" />
   <slot />
@@ -98,12 +98,11 @@ const baseDiscussionUrl = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/disc
       feedbackButton.setAttribute('aria-label', `${documentTitle}에 대한 의견 남기기`);
       feedbackButton.setAttribute('title', `${documentTitle}에 대한 의견 남기기`);
 
-      console.log('페이지 제목:', documentTitle);
-      console.log('최종 URL:', feedbackButton.href);
+      // console.log('페이지 제목:', documentTitle);
+      // console.log('최종 URL:', feedbackButton.href);
     });
   </script>
 )}
-
 <style>
   .floating-feedback {
     position: fixed;

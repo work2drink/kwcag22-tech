@@ -43,27 +43,101 @@ export default defineConfig({
 				{
 					label: '인식의 용이성',
                     collapsed: true,
-                    autogenerate: { directory: 'perceivable' },
+                    items: [
+                        {
+                            label: '1.1 대체 텍스트',
+                            collapsed: true,
+                            autogenerate: { directory: 'perceivable/1-1' },
+                        },
+                        {
+                            label: '1.2 멀티미디어 대체수단',
+                            collapsed: true,
+                            autogenerate: { directory: 'perceivable/1-2' },
+                        },
+                        {
+                            label: '1.3 적응성',
+                            collapsed: true,
+                            autogenerate: { directory: 'perceivable/1-3' },
+                        },
+                        {
+                            label: '1.4 명료성',
+                            collapsed: true,
+                            autogenerate: { directory: 'perceivable/1-4' },
+                        },
+                    ]
 				},
 				{
                     label: '운용의 용이성',
                     collapsed: true,
-					autogenerate: { directory: 'operable' },
+                    items: [
+                        {
+                            label: '2.1 입력장치 접근성',
+                            collapsed: true,
+                            autogenerate: { directory: 'operable/2-1' },
+                        },
+                        {
+                            label: '2.2 충분한 시간 제공',
+                            collapsed: true,
+                            autogenerate: { directory: 'operable/2-2' },
+                        },
+                        {
+                            label: '2.3 광과민성 발작 예방',
+                            collapsed: true,
+                            autogenerate: { directory: 'operable/2-3' },
+                        },
+                        {
+                            label: '2.4 쉬운 내비게이션',
+                            collapsed: true,
+                            autogenerate: { directory: 'operable/2-4' },
+                        },
+                        {
+                            label: '2.5 입력 방식',
+                            collapsed: true,
+                            autogenerate: { directory: 'operable/2-5' },
+                        },
+                    ]
 				},
                 {
                     label: '이해의 용이성',
                     collapsed: true,
-                    autogenerate: { directory: 'understandable' },
+                    items: [
+                        {
+                            label: '3.1 가독성',
+                            collapsed: true,
+                            autogenerate: { directory: 'understandable/3-1' },
+                        },
+                        {
+                            label: '3.2 예측 가능성',
+                            collapsed: true,
+                            autogenerate: { directory: 'understandable/3-2' },
+                        },
+                        {
+                            label: '3.3 입력 도움',
+                            collapsed: true,
+                            autogenerate: { directory: 'understandable/3-3' },
+                        },
+                    ]
                 },
                 {
                     label: '견고성',
                     collapsed: true,
-                    autogenerate: { directory: 'robust' },
+                    items: [
+                        {
+                            label: '4.1 문법 준수',
+                            collapsed: true,
+                            autogenerate: { directory: 'robust/4-1' },
+                        },
+                        {
+                            label: '4.2 웹 애플리케이션 접근성',
+                            collapsed: true,
+                            autogenerate: { directory: 'robust/4-2' },
+                        },
+                    ]
                 },
                 {
                     label: 'KWCAG 이해와 실무 적용',
                     collapsed: true,
-                    autogenerate: { directory: 'guides' },
+                    autogenerate: { directory: 'for-works' },
                 },
                 {
                     label: '용어집',

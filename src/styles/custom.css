@@ -112,12 +112,12 @@ li ul, li ol {
 :root[data-theme='dark'] {
   --sl-icon-invert: 1;
 }
-:root[data-theme='dark'] body {
+:root[data-theme='dark'] body.home {
   background: url('../assets/dark1.png') no-repeat right bottom;
   background-size: cover;
   background-attachment: fixed;
 }
-:root[data-theme='light'] body {
+:root[data-theme='light'] body.home {
   background: url('../assets/light1.png') no-repeat right bottom;
   background-size: cover;
   background-attachment: fixed;
