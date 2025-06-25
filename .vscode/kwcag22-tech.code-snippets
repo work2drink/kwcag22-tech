@@ -16,5 +16,16 @@
 			"</figure>"
 		],
 		"description": "Make figure, figcaption with markdown"
+	},
+	"Glossary": {
+		"scope": "mdx",
+		"prefix": "dls",
+		"body": [
+			"<dl>",
+			"	<dt>용어</dt>",
+			"	<dd>설명</dd>",
+			"</dl>"
+		],
+		"description": "Make figure, figcaption with markdown"
 	}
 }
