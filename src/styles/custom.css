@@ -112,14 +112,36 @@ li ul, li ol {
 :root[data-theme='dark'] {
   --sl-icon-invert: 1;
 }
-:root[data-theme='dark'] body.home {
+:root[data-theme='dark'] body {
+  background-color: #07080D;
+}
+:root[data-theme='dark'] .home {
   background: url('../assets/dark1.png') no-repeat right bottom;
   background-size: cover;
   background-attachment: fixed;
 }
-:root[data-theme='light'] body.home {
+:root[data-theme='light'] .home {
   background: url('../assets/light1.png') no-repeat right bottom;
   background-size: cover;
   background-attachment: fixed;
 }
 
+/* 메인 페이지 */
+.hero {
+  margin-top:-30px;
+  background-color: transparent;
+}
+:root[data-theme='dark'] .hero {
+  background: url('../assets/dark1.png') no-repeat right bottom;
+  background-size: cover;
+  background-attachment: fixed;
+}
+:root[data-theme='light'] .hero {
+  background: url('../assets/light1.png') no-repeat right bottom;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.hero [data-page-title] {
+  max-width: 20rem;
+  word-break: break-all;
+}

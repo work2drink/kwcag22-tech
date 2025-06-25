@@ -45,6 +45,10 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                         {
+                            label: '개요',
+                            link: 'perceivable'
+                        },
+                        {
                             label: '1.1 대체 텍스트',
                             collapsed: true,
                             autogenerate: { directory: 'perceivable/1-1' },
@@ -70,6 +74,10 @@ export default defineConfig({
                     label: '운용의 용이성',
                     collapsed: true,
                     items: [
+                        {
+                            label: '개요',
+                            link: 'operable'
+                        },
                         {
                             label: '2.1 입력장치 접근성',
                             collapsed: true,
@@ -102,6 +110,10 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                         {
+                            label: '개요',
+                            link: 'understandable'
+                        },
+                        {
                             label: '3.1 가독성',
                             collapsed: true,
                             autogenerate: { directory: 'understandable/3-1' },
@@ -123,6 +135,10 @@ export default defineConfig({
                     collapsed: true,
                     items: [
                         {
+                            label: '개요',
+                            link: 'robust'
+                        },
+                        {
                             label: '4.1 문법 준수',
                             collapsed: true,
                             autogenerate: { directory: 'robust/4-1' },
@@ -140,9 +156,12 @@ export default defineConfig({
                     autogenerate: { directory: 'for-works' },
                 },
                 {
-                    label: '용어집',
-                    collapsed: true,
-                    autogenerate: { directory: 'glossary' },
+                    'label': '문서 소개',
+                    link: '/guides/',
+                },
+                {
+                    'label': '업데이트 내역',
+                    link: '/guides/update',
                 },
 			],
 		}),

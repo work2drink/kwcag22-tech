@@ -3,13 +3,13 @@
 import Default from '@astrojs/starlight/components/PageFrame.astro';
 import type { Props } from '@astrojs/starlight/props';
 
-const props = Astro.props;
-const { pathname } = Astro.url;
-const isHomePage = pathname === '/' || pathname === '/index.html' || pathname === '/kwcag22-tech' || pathname.endsWith('/index');
-
 // GitHub 저장소 정보
 const GITHUB_USER = "work2drink";
 const GITHUB_REPO = "kwcag22-tech";
+
+const props = Astro.props;
+const { pathname } = Astro.url;
+const isHomePage = pathname === '/' || pathname === '/index.html' || pathname.endsWith('/index');
 
 // 카테고리 ID 또는 이름 선택 (ID가 있으면 그것을 사용, 없으면 이름 사용)
 const categoryParam = "general";
@@ -33,7 +33,7 @@ else if (props.entry?.data?.headings && props.entry.data.headings.length > 0) {
 const baseDiscussionUrl = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/discussions/new?category=${categoryParam}`;
 ---
 
-<Default {...props} bodyClass={isHomePage ? 'home' : ''}>
+<Default {...props}>
   <slot name="header" slot="header" />
   <slot name="sidebar" slot="sidebar" />
   <slot />
