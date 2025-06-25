@@ -109,3 +109,8 @@ li ul, li ol {
   background-size: cover;
   background-attachment: fixed;
 }
+
+/* sub page */
+figure.row-images img {
+	display: inline-block;
+}

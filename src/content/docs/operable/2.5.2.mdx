@@ -21,7 +21,7 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 이러한 사용자의 실수를 방지하고, 잘못된 입력임을 인식했을 때 이를 되돌리거나 취소할 방법을 제공해야 한다.
 
-포인터 입력을 취소할 수 있는 가장 간단한 방법은, 기능 실행을 누르는 순간(Down Event)이 아니라, 포인터를 떼는 순간(Up Event)에서 실행되도록 하는 것이다.
+포인터 입력을 취소할 수 있는 가장 간단한 방법은, [기능 실행을 누르는 순간(Down Event)](../../glossary/down-event)이 아니라, [포인터를 떼는 순간(Up Event)](../../glossary/up-event)에서 실행되도록 하는 것이다.
 
 예를 들어, 버튼을 클릭할 때 마우스 버튼을 누르는 순간에는 기능이 실행되지 않고, 포인터가 버튼 영역 내에 있는 동안 마우스 버튼을 뗄 때(Up Event) 기능이 실행되도록 설정한다. JavaScript의 click 이벤트가 마우스 버튼을 뗄 때 작동하는 암묵적인 업 이벤트(Up Event) 방식인 사례에 해당한다. 
 
