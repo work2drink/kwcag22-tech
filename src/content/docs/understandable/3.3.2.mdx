@@ -1,0 +1,207 @@
+---
+title: 3.3.2. 레이블 제공
+description: 사용자 입력에는 대응하는 레이블을 제공해야 한다.
+outline: { label:false }
+lastUpdated: 2025-03-31
+draft: true
+---
+import { Aside, Badge, Card } from '@astrojs/starlight/components';
+
+<Aside title="검사 항목">
+사용자 입력에는 대응하는 레이블을 제공해야 한다.
+</Aside>
+
+## 목적
+레이블은 입력 양식의 용도와 입력해야 할 정보를 설명하는 ‘이름표’ 역할을 한다. 이를 통해 모든 사용자, 특히 보조 기술을 사용하는 사용자가 각 양식 항목의 목적과 요구사항을 명확하게 이해할 수 있도록 돕는다.
+
+##	배경 및 필요성
+입력 양식에 적절한 레이블이 제공되면, 사용자는 어떤 정보를 입력해야 하는지 명확하게 이해할 수 있다. 반면, 레이블이 없거나 불충분하면 사용자는 입력 양식의 용도와 요구사항을 추측해야 하며, 이로 인해 입력 오류가 발생할 가능성이 높아진다.
+
+특히, 화면을 직접 보지 못하는 보조 기술 사용자는 화면낭독프로그램을 통해 입력 양식의 레이블 정보를 듣고, 이를 바탕으로 작업을 수행한다. 따라서, 레이블을 눈에 보이지 않게 처리할 때도 보조 기술에서는 인식할 수 있도록 해야 한다.
+
+레이블은 글자 크기, 색상 대비, 위치 등의 가독성을 높여 제공하여, 모든 사용자가 입력란의 용도와 요구 사항을 한눈에 파악할 수 있도록 제공하는 것이 바람직하다.
+
+##	기본 규칙
+- 사용자 입력을 받는 모든 요소(`input`, `select`, `textarea`)에는 역할과 목적을 설명하는 레이블을 반드시 제공해야 한다.
+- `label` 요소의 `for` 속성으로 레이블과 입력란의 `id` 값을 명확히 연결한다.<br/>
+예) `<label for="inp-email">이메일 주소</label>`, `<input type="email" id="inp-email">`
+- 레이블을 시각적으로 보이지 않더라도, 보조 기술에서 인식할 수 있도록 제공해야 한다.
+- `display:none`, `visibility:hidden`, `font-size:0` 등 속성으로 레이블이 숨겨진 경우, 보조 기술이 레이블을 인식할 수 없으므로 해당 속성은 사용하지 않는다.
+- `placeholder`는 입력 예시나 힌트를 제공하는 용도로만 사용하며, 입력 양식의 용도를 설명하는 레이블 역할을 대신할 수 없다. `placeholder`는 사용자가 입력을 시작하면 사라지므로, 입력 양식의 용도를 명확하게 전달하기 어렵다.
+- `label`과 `placeholder`는 동일한 내용을 중복으로 제공하지 않는다.
+
+
+## 적용 사례
+### 1)	시각적으로 보이는 레이블 제공
+시각적으로 보이는 레이블은 저시력, 인지적 장애가 있는 사용자를 포함하여, 모든 사용자가 입력 양식의 용도와 목적을 쉽게 이해할 수 있도록 돕는다. 이때, 레이블은 사용자가 쉽게 읽을 수 있도록 가독성을 위해 글자 크기, 색상 대비, 위치 등을 고려하는 것이 좋다. 
+
+![이미지. 시각적으로 보이는 레이블이 제공된 예시](/images/image241.png)
+
+```html
+<div>
+	<label for="name">이름</label>
+	<div><input type="text" id="name" name="name"></div>
+</div>
+<div>
+	<label for="email">이메일</label>
+	<div><input type="email" id="email" name="email"></div>
+</div>
+```
+
+### 2)	시각적으로 숨겨진 레이블 제공
+레이블을 화면에서 숨겨야 하는 경우, CSS 기법을 사용하여 화면에서는 숨기되 보조 기술이 인식할 수 있도록 구현한다.
+
+이를 구현할 때, `display:none`, `visibility:hidden`, `font-size:0` 과 같은 속성들을 사용하면 화면뿐만 아니라 보조 기술에서도 레이블이 인식되지 않으므로, 화면에서만 숨기고 보조 기술이 인식할 수 있도록 구현해야 한다.
+
+`label` 요소를 사용하여 입력란과 연결하고, `class="visually-hidden"`을 적용해 화면에서는 숨기지만 화면낭독프로그램이 인식할 수 있도록 CSS를 제공한다.
+
+![이미지. 시각적으로 숨겨진 레이블을 제공한 예시](/images/image242.png)
+
+```html {1-11,16-17}
+<style>
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+</style>
+
+<div class="search-wrap">
+	<label for="search" class="visually-hidden">검색어</label>
+	<input type="search" id="search" class="search-input" placeholder="검색어를 입력하세요">
+	<button type="submit" class="search-button" aria-label="검색">
+		<svg xmlns="..." viewBox="0 0 24 24">...</svg>
+	</button>
+</div>
+```
+### 3)	하나의 레이블에 여러 개의 입력란 연결
+3자리로 나눠진 전화번호 입력란과 같이 하나의 레이블을 여러 개의 입력란에 연결해야 하는 경우, 각 입력란의 역할을 명확하게 구분하여 사용자가 혼동 없이 정보를 입력할 수 있도록 해야 한다. 
+
+이를 위해 각 입력란에 고유한 레이블을 제공하거나, 보조 정보로서 `title` 속성을 추가하여 화면낭독프로그램이 추가 정보를 전달할 수 있도록 한다. 단, title 속성은 본래 레이블을 대체하기 위한 것이 아니므로, 보이는 레이블이 제공되지 않는 경우에만 보완용으로 사용할 수 있다. 레이블의 대안으로 사용하는 것은 적절하지 않다.
+
+다음은 단일 레이블 ‘휴대폰번호’에 3개의 입력란이 연결되는 사례이다.
+
+‘휴대폰번호’라는 단일 레이블을 제공하면서, 각 입력란의 용도를 명확히 하기 위해 `title` 속성을 사용하여 ‘국번’, ‘휴대폰 앞자리’, ‘휴대폰 뒷자리’로 각각의 목적을 설명한다.
+
+![이미지. 단일 레이블 '휴대폰번호'에 3개의 입력란이 연결되는 예시](/images/image243.png)
+
+```html
+<th scope="row">
+    <label for="phone1">휴대전화 <img alt="필수입력" src="..."></label>
+</th>
+<td>
+	<select title="국번" name="phone1" id="phone1">
+		<option value="010">010</option>
+		<option value="019">019</option>
+		...
+	</select>
+	<input type="text" id="phone2" maxlength="4" title="휴대폰 앞자리" …>
+	<input type="text" id="phone3" maxlength="4" title="휴대폰 뒷자리" …>
+</td>
+```
+
+### 4)	암묵적 레이블의 보완 
+실행 영역 확보 등 이유로 암묵적으로 레이블을 제공한 경우, 일부 보조 기기에서 인식하지 못하는 경우도 있다. 이를 보완하기 위해 명시적으로 `input` 요소의 `id` 값과 `label`의 `for` 속성을 연결하여 제공해야 한다.
+
+![이미지. 상품 옵션을 선택할 수 있는 라디오 버튼 예시](/images/image244.png)
+
+```html
+<label for="product01">
+	<input id="product01" type="radio">
+	<img src="prd_detail.jpg" alt="">
+	<span>누룽지 수제비</span>
+	<span>9,390원</span>
+</label>
+```
+
+## 개선 필요 사례
+### 1)	입력란에 레이블 미제공
+아이디 입력란에 레이블이 제공되지 않은 사례이다. 레이블이 제공되지 않으면, 보조 기술 사용자나 인지 장애가 있는 사용자는 각 입력란의 용도를 파악할 수 없어 어려움을 겪을 수 있다. 
+
+비활성화된 아이디 입력란에 레이블이 제공되지 않은 사례로, 사용자는 해당 입력란에 표시된 텍스트의 의미를 즉시 파악하기 어렵다.
+
+![이미지. 레이블이 제공되지 않은 검색창 사례](/images/image245.png)
+
+```html
+<div class="box">
+	<input type="text" disabled value="mindy">
+	<input type="password" placeholder="비밀번호" ...>
+</div>
+```
+#### 개선 방법
+레이블을 화면에서 시각적으로 노출하지 않는 경우 보조 기술에서 인식할 수 있도록 `title` 속성 또는 ARIA 속성(예: `aria-label`)을 활용해 설정할 수 있다.
+```html
+<div class="box">
+	<input type="text" disabled value="mindy" title="아이디">
+	<input type="password" placeholder="비밀번호" title="비밀번호 확인" ...>
+</div>
+```
+{/* 이미지. title 속성을 제공한 예시 */}
+
+### 2)	입력 양식과 레이블 연결 오류 
+다음은 `input` 요소의 `id` 값과 `label` 요소의 `for` 값이 올바르게 연결되지 않은 사례이다.
+
+id와 for 값이 일치하지 않아, 화면낭독프로그램은 레이블과 입력란 간의 관계를 인식할 수 없고 이로 인해 시각장애 사용자는 입력 양식의 용도를 정확히 파악할 수 없다.
+
+```html
+<div class="form-group">
+	<label for="user-name">이름</label>
+	<input type="text" id="user-name" placeholder="이름을 입력하세요">
+</div>
+<div class="form-group">
+	<label for="user-email">이메일</label>
+	<input type="email" id="user-mail" placeholder="이메일을 입력하세요">
+</div>
+```
+
+#### 개선 방법
+레이블과 입력란 간의 관계를 올바르게 인식할 수 있도록 `label` 요소의 `for` 속성은 연결된 `input` 요소의 `id` 값과 정확히 일치하게 제공해야 한다.
+
+### 3)	(권고) 레이블을 placeholder 속성으로 제공
+다음은 검색 입력란의 레이블 없이 `placeholder` 속성만 제공된 사례이다.
+
+`placeholder` 속성은 입력할 값의 예시나 힌트를 제공하기 위해 설계된 것이므로, 입력란의 용도를 설명하는 레이블 역할을 대신하기에는 적합하지 않다.
+
+또한, 입력을 시작하면 `placeholder` 내용이 사라지므로 사용자가 해당 입력란의 목적을 인지하기 어려워진다. 또한, 일부 화면낭독프로그램에서는 `placeholder` 속성을 인식하지 못하는 경우도 있다.
+
+![이미지. placeholder만 제공된 예시](/images/image246.png)
+
+```html
+<div class="search-wrap">
+	<input type="search" id="search" placeholder="검색어">
+	<button type="submit" class="search-button" aria-label="검색">
+		<svg ...> ... </svg>
+	</button>
+</div>
+```
+
+#### 개선 방법
+`label` 요소를 사용해 입력 요소와 연결하는 것이 가장 적합하다. 이때, `placeholder`와 `label`의 내용이 동일하게 중복되지 않도록 역할에 맞게 작성해야 한다.
+
+### 4)	콤보박스의 레이블 미제공
+`select` 요소에 레이블이 제공되지 않은 사례이다.
+
+콤보박스의 첫 번째 옵션값은 단순히 예시나 안내 목적으로 사용되며, 콤보박스의 실제 용도와 기능을 전달하기에 부족하다.
+
+만약 사용자가 다른 옵션을 선택하거나 기본 옵션이 변경될 경우, 화면낭독프로그램은 해당 콤보박스의 용도를 제대로 전달하지 못할 수 있다. 따라서, 첫 번째 옵션값은 레이블 역할을 대신할 수 없으므로, 별도의 명확한 레이블을 제공해야 한다. 
+
+![이미지. 콤보박스의 첫 번째 옵션을 ‘배송지 선택’으로 레이블처럼 사용한 예시](/images/image247.png)
+
+```html
+<div class="form-group">
+	<select>
+		<option value="">배송지 선택</option>
+		<option value="home">집</option>
+		<option value="office">회사</option>
+		<option value="other">기타</option>
+	</select>
+</div>
+```
+#### 개선 방법
+별도의 명확한 label 요소를 제공하여 사용자가 콤보박스의 용도를 쉽게 이해할 수 있도록 제공한다.
