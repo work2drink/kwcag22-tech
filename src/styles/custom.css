@@ -114,3 +114,8 @@ li ul, li ol {
 figure.row-images img {
 	display: inline-block;
 }
+figure.row-half img {
+  display: inline-block;
+  width: 48%;
+  vertical-align: middle;
+}
