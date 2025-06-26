@@ -34,7 +34,7 @@
 /* Card 컴포넌트 조정 - 서브페이지에만 적용 */
 :not(div.card-grid) .card {
   padding: 1rem;
-  margin-block: 0.5rem;
+  margin: 2rem 0 0.5rem;
 }
 :not(div.card-grid) .card .card-content {
   padding: 0.5rem;
@@ -75,6 +75,12 @@ h1#_top {
 li ul, li ol {
   padding-left: 1rem;
 }
+.content-panel dl dt {
+  margin-top: 1rem;
+}
+.content-panel dl dd {
+  padding-left: 0;
+}
 .pagination-links a .link-title {
   font-size: 1.2rem;
 }
@@ -85,6 +91,9 @@ li ul, li ol {
 }
 .content-panel figure img {
   display: inline;
+}
+.content-panel figure figcaption {
+  margin-top: .5rem;
 }
 .content-panel figure.row-half img {
   display: inline-block;

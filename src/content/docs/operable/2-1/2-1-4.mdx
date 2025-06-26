@@ -23,8 +23,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 따라서, 단축키 기능을 끌 수 있는 옵션을 제공하면 음성 명령 사용자와 키보드 사용자 모두 실수로 단축키가 실행되는 것을 방지할 수 있다. 또한, 운동 기능 제약으로 인해 키보드만 사용하는 사용자가 반복적으로 잘못된 키를 누를 경우에도 [문자 단축키](../../glossary/single-key-shortcuts)를 끄거나, 수식키(Ctrl, Alt, Shift)와 조합한 단축키로 변경할 수 있도록 하여 문제를 예방할 수 있다.
 
-![이미지.  Single key shortcuts affecting speech input - example 2(출처: 유튜브)](/images/image141.png)
-[Single key shortcuts affecting speech input - example 2](https://www.youtube.com/watch?v=OPjfpDU9S08)
+<figure>
+	![](/images/image141.png)
+	<figcaption>이미지.  [Single key shortcuts affecting speech input - example 2](https://www.youtube.com/watch?v=OPjfpDU9S08) (출처: 유튜브)</figcaption>
+</figure>
 
 추가로, 모든 단축키를 재설정하도록 허용하면 일부 인지 장애가 있는 사용자에게 도움이 될 수 있다. 이는 사용자가 자주 쓰는 단축키를 동일하게 여러 애플리케이션에 할당하여 같은 작업을 수행할 수 있도록 하기 때문이다.
 
@@ -34,27 +36,53 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 - [문자 단축키](../../glossary/single-key-shortcuts)를 [수식키](../../glossary/modifier-key)(예: `Ctrl`, `Alt`, `Shift`)와 조합한 단축키로 재설정하거나 변경할 수 있는 기능을 제공한다.
 - 사용자가 특정 UI 영역에 초점을 맞춘 경우에만 해당 단축키가 작동하도록 설정해야 한다. 예를 들어, 지도 영역에 초점을 맞춘 경우에만 ‘+’키, ‘-’키로 확대/축소가 실행되거나, 이메일 목록 영역에 초점을 맞춘 경우에만 메일 삭제 단축키가 작동해야 한다.
 
+## 용어
+<dl>
+	<dt>단일 문자 단축키</dt>
+	<dd>
+		영문자, 숫자, 기호 등 출력 가능한 하나의 키 입력으로 특정 기능을 실행하도록 설계된 단축키이다.
+		<figure>
+			![](/images/image142.jpg)
+			<figcaption>이미지. 기본 키보드에서 단일 문자 단축키 표시 예시</figcaption>
+		</figure>
+	</dd>
+	<dt>수식키</dt>
+	<dd>Ctrl, Alt(또는 Mac의 Option), Shift 키 등 단독으로는 기능을 수행하지 않지만, 다른 키와 조합 시 일반 동작을 변경하는 특수키이다. 단, 기능키(F1 등)는 상황에 따라 단독 실행이 가능하므로 수식키에 포함되지 않는다.</dd>
+</dl>
+
 ## 적용 사례
 ### 1)	문자 단축키 끄기 설정 제공
 메일 서비스의 설정 메뉴에서 문자 단축키 기능을 ‘사용/사용 안함’로 선택할 수 있도록 제공한 사례이다. 사용자가 원치 않을 경우 쉽게 기능을 끌 수 있도록 해야 한다.
 
-![이미지. 단축키 사용 설정 사례 (출처: Gmail)](/images/image143.png)
+<figure>
+	![](/images/image143.png)
+	<figcaption>이미지. 단축키 사용 설정 사례 (출처: Gmail)</figcaption>
+</figure>
 
 ### 2)	문자 단축키 재설정 기능 제공
 메일 서비스에서 단축키를 재설정할 수 있도록, 사용자가 `Ctrl+Shift+S` 등 조합 단축키로 변경할 수 있는 기능을 제공한 사례이다.
 
 문자 단축키를 기본 단일 문자 대신, [수식키](../../glossary/modifier-key)(예: `Ctrl`, `Alt`, `Shift`)와 조합하여 재설정할 수 있도록 하면, 실수로 문자키를 눌러도 의도하지 않은 기능 실행을 방지할 수 있다.
 
-![이미지. 단축키 재설정 사례 (출처: 네이버 메일)](/images/image144.png)
+<figure>
+	![](/images/image144.png)
+	<figcaption>이미지. 단축키 재설정 사례 (출처: 네이버 메일)</figcaption>
+</figure>
 
 ### 3)	특정 영역에 초점을 맞춘 경우만 실행되는 문자 단축키
 지도 서비스에서 지도 영역에 초점을 맞춘 경우에만 '+' 및 '-' 키를 이용하여 확대/축소 기능이 실행되는 사례다. 
 
 다른 영역에 초점을 두었을 때는 해당 단축키가 작동하지 않아 불필요한 오류를 예방한다.
 
-![이미지. 지도 영역에 초점을 맞췄을 때 파란 네모로 표시하는 화면 사례 (출처: 구글맵)](/images/image145.png)
+<figure>
+	![](/images/image145.png)
+	<figcaption>이미지. 지도 영역에 초점을 맞췄을 때 파란 네모로 표시하는 화면 사례 (출처: 구글맵)</figcaption>
+</figure>
 
-![이미지. 지도 영역에서 사용 가능한 단축키 안내 사례 (출처: 구글맵)](/images/image146.png)
+<figure>
+	![](/images/image146.png)
+	<figcaption>이미지. 지도 영역에서 사용 가능한 단축키 안내 사례 (출처: 구글맵)</figcaption>
+</figure>
 
 ## 개선 필요 사례
 
@@ -66,8 +94,15 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 이에 따라 음성 명령 또는 키보드 사용자가 의도하지 않은 단축키를 실행하여 오류가 발생할 수 있다.
 
-![이미지. 달력 서비스 사례](/images/image147.png)
-![이미지. 달력 서비스 단축키 안내 사례](/images/image148.png)
+<figure>
+	![](/images/image147.png)
+	<figcaption>이미지. 달력 서비스 사례</figcaption>
+</figure>
+
+<figure>
+	![](/images/image148.png)
+	<figcaption>이미지. 달력 서비스 단축키 안내 사례</figcaption>
+</figure>
 
 #### 개선 방법
 다음 중 하나 이상의 방법을 적용한다.
@@ -82,12 +117,13 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 다음 사례를 예로 들면, 화면낭독프로그램인 센스리더에서 홈페이지 메인으로 이동하기 위해 'H' 키를 누르면, 센스리더의 제목 간 탐색 기능을 하는 단축키와 충돌하여 메인으로 이동하지 않는다. 이 경우 사용자가 보조 기기의 단축키와 충돌을 우회하기 위한 추가 작업(예: 기능키 무시)을 해야 하므로 불편함이 있다.
 
-![이미지. 사이트 탐색을 위한 단축키 안내 사례](/images/image149.png)
+<figure>
+	![](/images/image149.png)
+	<figcaption>이미지. 사이트 탐색을 위한 단축키 안내 사례</figcaption>
+</figure>
 
 #### 개선 방법
 다음 중 하나 이상의 방법을 적용한다.
 - 문자 단축키 기능을 끌 수 있는 설정을 제공한다.
 - 보조 기기와 충돌하지 않도록 수식키와 조합한 단축키로 변경할 수 있도록 한다.
 - 단축키 설정 변경 방법 및 안내 문서를 제공하여 사용자가 자신의 환경에 맞춰 설정할 수 있도록 지원한다.
-
-
