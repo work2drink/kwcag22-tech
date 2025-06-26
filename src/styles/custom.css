@@ -91,6 +91,13 @@ li ul, li ol {
   margin-top: -2.3rem;
   margin-left: 1rem;
 }
+.content-panel table {
+  width: 100%;
+}
+/* .content-panel table th {
+  font-weight: 700;
+  text-align: center;
+} */
 
 .pagination-links a .link-title {
   font-size: 1.2rem;
@@ -106,10 +113,23 @@ li ul, li ol {
 .content-panel figure figcaption {
   margin-top: .5rem;
 }
-.content-panel figure.row-half img {
-  display: inline-block;
-  width: 48%;
-  vertical-align: middle;
+@media screen and (min-width: 1024px) {
+  .content-panel figure.col2 img {
+    display: inline-block;
+    width: 48%;
+    vertical-align: middle;
+  }
+  .content-panel figure.col3 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .content-panel figure.col3 img {
+    width: 32%;
+  }
+  .content-panel figure.col3 figcaption {
+    width: 100%;
+  }
 }
 
 /* src/styles/custom.css */

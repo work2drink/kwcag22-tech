@@ -27,6 +27,14 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 - 다양한 브라우저, 운영 체제, 보조 기술 환경에서 웹 애플리케이션과 플러그인의 접근성을 테스트하고 개선해야 한다.
 - 플러그인이나 웹 애플리케이션을 선택할 때는 접근성 지원 여부를 검토하고, 접근성이 확보된 솔루션을 채택해야 한다.
 
+## 용어
+<dl>
+	<dt>플러그인</dt>
+	<dd>웹 브라우저에서 기본적으로 지원하지 않는 특정 기능이나 콘텐츠를 제공하기 위해 추가 설치하는 소프트웨어이다. 플러그인은 웹 페이지와 통합되어 사용자가 특정 콘텐츠를 원활하게 이용할 수 있도록 돕는 역할을 한다.</dd>
+	<dt>웹 애플리케이션</dt>
+	<dd>웹 서버와 클라이언트(웹 브라우저) 간의 상호작용을 통해 동적 콘텐츠 제공, 데이터 처리, 사용자 상호작용 등의 기능을 수행하는 소프트웨어 프로그램을 의미한다.</dd>
+</dl>
+
 ## 적용 사례
 ### 1)	접근성을 준수하는 부가 웹 애플리케이션 제공
 부가 웹 애플리케이션을 사용하는 경우, 사전에 접근성 지침 준수 여부(대체 텍스트 제공, 키보드 접근성, 화면낭독프로그램 호환성 등)를 충분히 검토하는 것이 필수적이다. 부가 웹 애플리케이션은 직접 개발하거나 수정할 수 없는 경우가 많으므로, 접근성 지원 사항을 미리 확인하는 것이 중요하다.
@@ -35,12 +43,18 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 사용한 부가 애플리케이션이 접근성을 완전히 충족하지 못한다면, 추가 설명이나 대체 수단을 제공하여 모든 사용자가 동등하게 콘텐츠를 이용할 수 있도록 개선해야 한다.
 
-![이미지. 접근성이 충분히 제공되는 외부 지도 애플리케이션을 사용한 사례 (출처: 에어비앤비)](/images/image268.png)
+<figure>
+	![](/images/image268.png)
+	<figcaption>이미지. 접근성이 충분히 제공되는 외부 지도 애플리케이션을 사용한 사례 (출처: 에어비앤비)</figcaption>
+</figure>
 
 ### 2)	리치 웹 애플리케이션(RIA)의 접근성 보장
 사용자 정의 컴포넌트와 같은 리치 웹 애플리케이션 요소는 기본 HTML 요소가 제공하는 접근성 정보를 상속받지 못하는 경우가 많다. 또한, 탭(Tab) UI와 같이 HTML 요소만으로는 역할 및 상태 정보를 충분히 전달하기 어려운 동적 콘텐츠의 경우가 있으므로, ARIA 속성을 적절히 활용하여 보조 기술에서 해당 컴포넌트의 역할과 상태를 해석할 수 있도록 제공할 수 있다.
 
-![이미지. ARIA Authoring Practices Guide (APG), Select-Only Combobox Example 사례 (출처: W3C)](/images/image269.png)
+<figure>
+	![](/images/image269.png)
+	<figcaption>이미지. ARIA Authoring Practices Guide (APG), Select-Only Combobox Example 사례 (출처: W3C)</figcaption>
+</figure>
 
 예를 들어, 사용자 정의 콤보박스를 구현할 때, 다음과 같이 적용할 수 있다.
 - 메뉴 전체에 `role="listbox"`와 각 옵션에 `role="option"`을 사용하고,
@@ -54,7 +68,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 <Card title="참고. ARIA Authoring Practices Guide" icon="open-book">
 사용자 정의 컴포넌트를 구현할 때는 W3C의 [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/)를 참고하면, 다양한 컴포넌트에 대한 접근성 패턴, ARIA 속성 사용 방법, 그리고 키보드 인터페이스 설계 원칙을 상세히 제공하여 표준에 기반한 개발에 도움을 받을 수 있다.
 
-![이미지. ARIA Authoring Practices Guide 사이트 중 Patterns 메뉴 제공 화면](/images/image270.png)
+<figure>
+	![](/images/image270.png)
+	<figcaption>이미지. <span lang="en">ARIA Authoring Practices Guide</span> 사이트 중 <span lang="en">Patterns</span> 메뉴 제공 화면</figcaption>
+</figure>
 </Card>
 
 ## 개선 필요 사례
@@ -65,7 +82,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 또한, 화면낭독프로그램 사용자가 라디오 버튼 옵션을 키보드 방향키로 제어할 때, 옵션 변경과 동시에 책 페이지가 변경되어 의도치 않은 페이지 이동이 발생하는 문제가 있다. 이러한 문제는 키보드 상호작용 설계가 적절하지 않아 사용자가 원하는 정보를 인식하거나 조작할 수 없게 만든다.
 
-![이미지. 웹 뷰어에서 마우스 호버 시 노출되는 메뉴 버튼(위쪽)과 키보드 접근 시에는 노출되지 않는 화면 비교 사례](/images/image271.png)
+<figure>
+	![](/images/image271.png)
+	<figcaption>이미지. 웹 뷰어에서 마우스 호버 시 노출되는 메뉴 버튼(위쪽)과 키보드 접근 시에는 노출되지 않는 화면 비교 사례</figcaption>
+</figure>
 
 #### 개선 방법
 외부 프로그램을 도입하기 전에 해당 프로그램이 키보드 내비게이션, 보조 기술 호환성, 그리고 시각적·청각적 정보의 대체 수단 제공 등 접근성 요구사항을 충족하는지 확인해야 한다.
@@ -81,7 +101,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 이에 따라 보조 기술을 사용하는 사용자는 인증 과정에서 불편함을 겪게 된다.
 
-![이미지. 공동인증서 로그인 시 실행된 웹 애플리케이션 사례](/images/image272.png)
+<figure>
+	![](/images/image272.png)
+	<figcaption>이미지. 공동인증서 로그인 시 실행된 웹 애플리케이션 사례</figcaption>
+</figure>
 
 #### 개선 방법
 웹 애플리케이션 또한 앞에서 다룬 검사 항목을 모두 준수하는지 점검해야 한다.
@@ -93,7 +116,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 ### 3)	접근성이 준수되지 않은 사용자 정의 콤보박스
 다음은 상품 상세 페이지의 옵션 선택 영역이 콤보박스로 인식되지 않는 사례이다.
 
-![이미지. 커스텀된 콤보박스 사례](/images/image273.png)
+<figure>
+	![](/images/image273.png)
+	<figcaption>이미지. 커스텀된 콤보박스 사례</figcaption>
+</figure>
 
 옵션 목록이 `ul` 요소로 구현되어 있어 보조 기술 사용자는 이를 선택 가능한 콤보박스가 아닌 단순한 목록으로 인식할 수 있다. `a` 요소로 제공된 각 옵션은 페이지 이동 링크로 인식되어, 사용자가 옵션 목록을 제대로 탐색하거나 상호작용을 하기 어렵다.
 
@@ -134,10 +160,10 @@ WAI-ARIA는 웹 접근성을 높이기 위한 강력한 도구이지만, 올바�
 - **WAI-ARIA는 보조기기를 위한 정보 제공 도구임을 이해한다.**<br/>
 aria-*와 role 속성은 시각적 스타일이나 동작을 변경하지 않으며, 보조 기술과의 소통을 돕는 역할만 한다. `<div role="button">`은 보조 기술에서 버튼으로 인식되지만, 키보드 접근성은 제공하지 않는다. 이 때, 초점을 받을 수 있도록 하려면 tabindex="0"을 추가해야 한다. 
 - **aria-hidden은 신중하게 사용해야 한다.**<br/>
-aria-hidden="true"는 보조 기술이 해당 요소를 무시하도록 한다. 따라서 링크, 버튼, 입력란과 같이 상호작용이 필요한 요소에는 사용하지 않는다. 숨겨진 요소가 다시 표시될 경우 aria-hidden=”false”로 변경해야 한다. 
+aria-hidden="true"는 보조 기술이 해당 요소를 무시하도록 한다. 따라서 링크, 버튼, 입력란과 같이 상호작용이 필요한 요소에는 사용하지 않는다. 숨겨진 요소가 다시 표시될 경우 aria-hidden=”false”로 변경해야 한다.
 만약, 숨겨진 콘텐츠가 초점을 받지 않도록 해야 한다면 tabindex="-1"을 함께 적용해야 한다.
 - **실제 환경에서 반드시 테스트한다.**<br/>
-WAI-ARIA를 적용한 콘텐츠는 실제 보조 기술 환경에서 반드시 테스트해야 한다. 특정 브라우저나 보조 기기에서 예상과 다르게 동작할 수 있으며, 지원하지 않는 기능이나 버그가 존재할 수 있다. 
+WAI-ARIA를 적용한 콘텐츠는 실제 보조 기술 환경에서 반드시 테스트해야 한다. 특정 브라우저나 보조 기기에서 예상과 다르게 동작할 수 있으며, 지원하지 않는 기능이나 버그가 존재할 수 있다.
 
 자세한 내용은 앞서 소개한 W3C의 [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/)를 참조한다.
 

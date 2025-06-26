@@ -35,7 +35,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 ### 1)	사용자 의도에 의한 명확한 실행
 관련 사이트로 이동하는 기능을 콤보박스로 구현할 때, 사용자는 옵션 선택 목록에서 이동할 사이트를 선택한 후 별도의 ‘이동’ 버튼을 실행해야 한다. 이러한 방식은 키보드 사용자가 방향키로 목록을 탐색하는 동안 원치 않는 사이트로 이동하는 문제를 방지할 수 있다.
 
-![이미지. change 이벤트를 사용하지 않고 별도의 이동 버튼을 제공한 사례 (출처: 식의약데이터포털)](/images/image221.png)
+<figure>
+	![](/images/image221.png)
+	<figcaption>이미지. change 이벤트를 사용하지 않고 별도의 이동 버튼을 제공한 사례 (출처: 식의약데이터포털)</figcaption>
+</figure>
 
 ### 2) 새 창 열림 정보 사전 제공
 새 창에서 콘텐츠가 열릴 경우, 사용자는 기존 창과 새 창 사이의 관계 및 새 창의 콘텐츠 연관성을 쉽게 파악하기 어려울 수 있다. 특히, 화면낭독프로그램 사용자는 새 창 열림을 사전에 알지 못하면 웹 탐색 흐름이 끊어질 수 있다.
@@ -46,7 +49,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 또한, 모든 사용자가 동등한 정보를 인식할 수 있도록 링크 옆에 새 창 아이콘을 추가하거나 '새 창 열림'과 같은 텍스트를 제공하여 시각적으로 구분되는 정보를 함께 제공하는 방법도 있다.
 
-![이미지. 새 창 열림 정보가 사전 제공된 사례 (출처: 카카오)](/images/image222.png)
+<figure>
+	![](/images/image222.png)
+	<figcaption>이미지. 새 창 열림 정보가 사전 제공된 사례 (출처: 카카오)</figcaption>
+</figure>
 
 ```html
 <ul class="list">
@@ -68,7 +74,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 이에 따라 사용자는 예기치 않게 새 창이 열리고, 원래 창으로 돌아가기 위해 추가 조작이 필요하다.
 
-![이미지. 시각적인 단서 없이 새 창으로 열리는 링크를 사용한 예시](/images/image223.png)
+<figure>
+	![](/images/image223.png)
+	<figcaption>이미지. 시각적인 단서 없이 새 창으로 열리는 링크를 사용한 예시</figcaption>
+</figure>
 
 ```html
 <ul>
@@ -93,7 +102,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 이로 인해 다른 옵션을 선택하기 어려워진다.
 
-![이미지. change 이벤트에 자동으로 페이지가 이동하는 콤보박스 예시](/images/image224.png)
+<figure>
+	![](/images/image224.png)
+	<figcaption>이미지. change 이벤트에 자동으로 페이지가 이동하는 콤보박스 예시</figcaption>
+</figure>
 
 ```javascript {3}
 // family-site 셀렉트 박스에서 사용자가 선택을 바꾸면, 해당 주소로 이동하는 예시 코드
@@ -117,7 +129,10 @@ document.getElementById('family-site').addEventListener(
 
 팝업 창이 자동으로 열릴 경우, 팝업 창 실행이 사용자 동의 없이 이루어졌기 때문에 화면낭독프로그램 사용자는 자신이 다른 페이지로 이동했다고 혼동할 수 있고 따라서 현재 위치를 명확히 이해하지 못할 수 있다. 
 
-![이미지. 페이지 진입 시 팝업 창이 자동으로 열리는 사례](/images/image225.png)
+<figure>
+	![](/images/image225.png)
+	<figcaption>이미지. 페이지 진입 시 팝업 창이 자동으로 열리는 사례</figcaption>
+</figure>
 
 ```javascript
 window.addEventListener("load", function () {

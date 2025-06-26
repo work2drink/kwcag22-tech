@@ -35,7 +35,11 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 ### 1)	시각적으로 보이는 레이블 제공
 시각적으로 보이는 레이블은 저시력, 인지적 장애가 있는 사용자를 포함하여, 모든 사용자가 입력 양식의 용도와 목적을 쉽게 이해할 수 있도록 돕는다. 이때, 레이블은 사용자가 쉽게 읽을 수 있도록 가독성을 위해 글자 크기, 색상 대비, 위치 등을 고려하는 것이 좋다. 
 
-![이미지. 시각적으로 보이는 레이블이 제공된 예시](/images/image241.png)
+<figure>
+	![](/images/image241.png)
+	<figcaption>이미지. 시각적으로 보이는 레이블이 제공된 예시</figcaption>
+</figure>
+
 
 ```html
 <div>
@@ -55,9 +59,12 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 `label` 요소를 사용하여 입력란과 연결하고, `class="visually-hidden"`을 적용해 화면에서는 숨기지만 화면낭독프로그램이 인식할 수 있도록 CSS를 제공한다.
 
-![이미지. 시각적으로 숨겨진 레이블을 제공한 예시](/images/image242.png)
+<figure>
+	![](/images/image242.png)
+	<figcaption>이미지. 시각적으로 숨겨진 레이블을 제공한 예시</figcaption>
+</figure>
 
-```html {1-11,16-17}
+```html {2-12,16-17}
 <style>
 .visually-hidden {
 	position: absolute;
@@ -89,7 +96,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 ‘휴대폰번호’라는 단일 레이블을 제공하면서, 각 입력란의 용도를 명확히 하기 위해 `title` 속성을 사용하여 ‘국번’, ‘휴대폰 앞자리’, ‘휴대폰 뒷자리’로 각각의 목적을 설명한다.
 
-![이미지. 단일 레이블 '휴대폰번호'에 3개의 입력란이 연결되는 예시](/images/image243.png)
+<figure>
+	![](/images/image243.png)
+	<figcaption>이미지. 단일 레이블 '휴대폰번호'에 3개의 입력란이 연결되는 예시</figcaption>
+</figure>
 
 ```html
 <th scope="row">
@@ -106,10 +116,13 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 </td>
 ```
 
-### 4)	암묵적 레이블의 보완 
+### 4)	암묵적 레이블의 보완
 실행 영역 확보 등 이유로 암묵적으로 레이블을 제공한 경우, 일부 보조 기기에서 인식하지 못하는 경우도 있다. 이를 보완하기 위해 명시적으로 `input` 요소의 `id` 값과 `label`의 `for` 속성을 연결하여 제공해야 한다.
 
-![이미지. 상품 옵션을 선택할 수 있는 라디오 버튼 예시](/images/image244.png)
+<figure>
+	![](/images/image244.png)
+	<figcaption>이미지. 상품 옵션을 선택할 수 있는 라디오 버튼 예시</figcaption>
+</figure>
 
 ```html
 <label for="product01">
@@ -126,7 +139,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 비활성화된 아이디 입력란에 레이블이 제공되지 않은 사례로, 사용자는 해당 입력란에 표시된 텍스트의 의미를 즉시 파악하기 어렵다.
 
-![이미지. 레이블이 제공되지 않은 검색창 사례](/images/image245.png)
+<figure>
+	![](/images/image245.png)
+	<figcaption>이미지. 레이블이 제공되지 않은 검색창 사례</figcaption>
+</figure>
 
 ```html
 <div class="box">
@@ -170,7 +186,10 @@ id와 for 값이 일치하지 않아, 화면낭독프로그램은 레이블과 �
 
 또한, 입력을 시작하면 `placeholder` 내용이 사라지므로 사용자가 해당 입력란의 목적을 인지하기 어려워진다. 또한, 일부 화면낭독프로그램에서는 `placeholder` 속성을 인식하지 못하는 경우도 있다.
 
-![이미지. placeholder만 제공된 예시](/images/image246.png)
+<figure>
+	![](/images/image246.png)
+	<figcaption>이미지. placeholder만 제공된 예시</figcaption>
+</figure>
 
 ```html
 <div class="search-wrap">
@@ -191,7 +210,10 @@ id와 for 값이 일치하지 않아, 화면낭독프로그램은 레이블과 �
 
 만약 사용자가 다른 옵션을 선택하거나 기본 옵션이 변경될 경우, 화면낭독프로그램은 해당 콤보박스의 용도를 제대로 전달하지 못할 수 있다. 따라서, 첫 번째 옵션값은 레이블 역할을 대신할 수 없으므로, 별도의 명확한 레이블을 제공해야 한다. 
 
-![이미지. 콤보박스의 첫 번째 옵션을 ‘배송지 선택’으로 레이블처럼 사용한 예시](/images/image247.png)
+<figure>
+	![](/images/image247.png)
+	<figcaption>이미지. 콤보박스의 첫 번째 옵션을 ‘배송지 선택’으로 레이블처럼 사용한 예시</figcaption>
+</figure>
 
 ```html
 <div class="form-group">
