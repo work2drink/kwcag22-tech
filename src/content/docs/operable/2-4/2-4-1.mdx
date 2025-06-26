@@ -32,7 +32,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 ### 1)	반복 영역 건너뛰기 링크 제공
 웹 페이지 상단에 ‘본문 바로가기’ 링크를 배치하여, 키보드 탐색 시 사용자가 반복되는 내비게이션 영역을 건너뛰고 바로 본문으로 이동할 수 있도록 하였다. 건너뛰기 링크는 기본적으로 숨겨져 있지만, 키보드 초점을 받을 때 화면에 나타나도록 구현하여 사용자가 쉽게 인식할 수 있도록 하였다.
 
-![이미지. 시각적으로 항상 보여지도록 제공된 반복 영역 건너뛰기 링크 사례 (출처: 청주예술의전당)](/images/image164.png)
+<figure>
+	![](/images/image164.png)
+	<figcaption>이미지. 시각적으로 항상 보여지도록 제공된 반복 영역 건너뛰기 링크 사례 (출처: 청주예술의전당)</figcaption>
+</figure>
 
 ```html
 <body>
@@ -44,7 +47,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 ```
 건너뛰기 링크를 기본적으로 숨겨서 제공해야 하는 경우, 키보드 초점을 받았을 때 시각적으로 보이도록 해야 하며, 사용자가 이를 인지할 수 있도록 한다. 이는 최소한의 조치로서 예외적으로 허용된다.
 
-![이미지. 키보드 초점에 노출되는 반복 영역 건너뛰기 링크 사례 (출처: 용인수지장애인복지관)](/images/image165.png)
+<figure>
+	![](/images/image165.png)
+	<figcaption>이미지. 키보드 초점에 노출되는 반복 영역 건너뛰기 링크 사례 (출처: 용인수지장애인복지관)</figcaption>
+</figure>
 
 ```css
 #skip_to_container a {
@@ -73,7 +79,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 ### 1)	반복 영역 건너뛰기 미제공
 반복되는 상단(`header`) 영역이 있는 페이지에서 ‘본문 바로가기’ 링크가 제공되지 않으면, 키보드나 보조 기술 사용자가 매번 반복되는 영역을 탐색해야 한다.
 
-![이미지. 반복 영역 건너뛰기 링크가 제공되지 않은 사례](/images/image166.png)
+<figure>
+	![](/images/image166.png)
+	<figcaption>이미지. 반복 영역 건너뛰기 링크가 제공되지 않은 사례</figcaption>
+</figure>
 
 #### 개선 방법
 페이지 최상단에 '본문 바로가기' 링크를 추가하여, 사용자가 핵심 콘텐츠로 바로 접근할 수 있도록 한다.
@@ -83,7 +92,10 @@ import { Aside, Badge, Card } from '@astrojs/starlight/components';
 
 이 경우, 본래의 ‘본문 바로가기’ 기능 역할을 하지 못하며, 화면낭독프로그램 사용자와 키보드 사용자가 페이지 구조를 파악하고 탐색하는 데 시간이 오래 걸리게 된다.
 
-![이미지. 키보드 접근 시 활성화되는 다수의 바로가기 링크 제공 사례](/images/image167.png)
+<figure>
+	![](/images/image167.png)
+	<figcaption>이미지. 키보드 접근 시 활성화되는 다수의 바로가기 링크 제공 사례</figcaption>
+</figure>
 
 #### 개선 방법
 반복 영역 건너뛰기 링크는 반드시 본문 시작 영역으로 이동하도록 설정하고 페이지 상단에 배치해야 한다. 또한, 페이지 내 다른 콘텐츠 블럭 이동 링크와 혼동되지 않도록 명확히 구분하여 제공해야 한다.
