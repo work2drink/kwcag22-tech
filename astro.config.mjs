@@ -158,11 +158,11 @@ export default defineConfig({
                 },
                 {
                     'label': '문서 소개',
-                    link: '/guides/',
+                    link: '/intro',
                 },
                 {
-                    'label': '업데이트 내역',
-                    link: '/guides/update',
+                    'label': '문서 갱신 이력',
+                    link: '/update',
                 },
 			],
 		}),
