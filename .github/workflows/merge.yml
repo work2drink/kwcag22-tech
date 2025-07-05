@@ -1,0 +1,33 @@
+name: Merge MDX Files
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install fs path
+
+      - name: Run merge script
+        run: node merge.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add src/content/docs/merged.mdx
+          git commit -m "Merge MDX files" || echo "No changes to commit"
+          git push origin main

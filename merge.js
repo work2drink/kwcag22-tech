@@ -1,224 +1,106 @@
-import fs from 'fs';
-import path from 'path';
-import yaml from 'js-yaml';
+const fs = require('fs');
+const path = require('path');
 
 // 병합된 내용을 저장할 파일 경로
-const mergedFile = 'src/content/docs/merged.mdx';
+const mergedFile = 'src/content/docs/full.mdx';
 
 // 병합할 MDX 파일 목록 (수동 입력)
 const filesToMerge = [
-    {
-        path:  'perceivable/index',
-        label: '1. 인식의 용이성'
-    },
-    {
-        path: 'perceivable/1-1/1-1-1',
-        label: '1.1 대체 텍스트'
-    },
-    {
-        path: 'perceivable/1-2/1-2-1',
-        label: '1.2 멀티미디어 대체수단'
-    },
-    {
-        path: 'perceivable/1-3/1-3-1',
-        label: '1.3 적응성'
-    },
-    {
-        path: 'perceivable/1-4/1-4-1',
-        label: '1.4 명료성'
-    },
-    {
-        path:  'operable/index',
-        label: '2. 운용의 용이성'
-    },
-    {
-        path: 'operable/2-1/2-1-1',
-        label: '2.1 입력장치 접근성'
-    },
-    {
-        path: 'operable/2-2/2-2-1',
-        label: '2.2 충분한 시간 제공'
-    },
-    {
-        path: 'operable/2-3/2-3-1',
-        label: '2.3 광과민성 발작 예방'
-    },
-    {
-        path: 'operable/2-4/2-4-1',
-        label: '2.4 쉬운 내비게이션'
-    },
-    {
-        path: 'operable/2-5/2-5-1',
-        label: '2.5 입력 방식'
-    },
-    {
-        path:  'understandable/index',
-        label: '3. 이해의 용이성'
-    },
-    {
-        path: 'understandable/3-1/3-1-1',
-        label: '3.1 가독성'
-    },
-    {
-        path: 'understandable/3-2/3-2-1',
-        label: '3.2 예측 가능성'
-    },
-    {
-        path: 'understandable/3-3/3-3-1',
-        label: '3.3 입력 도움'
-    },
-    {
-        path:  'robust/index',
-        label: '4. 견고성'
-    },
-    {
-        path: 'robust/4-1/4-1-1',
-        label: '4.1 문법 준수'
-    },
-    {
-        path: 'robust/4-2/4-2-1',
-        label: '4.2 웹 애플리케이션 접근성'
-    },
-    {
-        label: '5. KWCAG 이해와 실무 적용',
-        path: 'for-works/index'
-    },
-    {
-        label: '실무 적용',
-        path: 'for-works/working-reference'
-    },
+  { "path": "perceivable/index", "label": "1. 인식의 용이성", "level": 1 },
+  { "path": "perceivable/1-1/1-1-1", "label": "1.1 대체 텍스트", "level": 2 },
+  { "path": "perceivable/1-2/1-2-1", "label": "1.2 멀티미디어 대체수단", "level": 2 },
+  { "path": "perceivable/1-3/1-3-1", "label": "1.3 적응성", "level": 2 },
+  { "path": "perceivable/1-4/1-4-1", "label": "1.4 명료성", "level": 2 },
+  { "path": "operable/index", "label": "2. 운용의 용이성", "level": 1 },
+  { "path": "operable/2-1/2-1-1", "label": "2.1 입력장치 접근성", "level": 2 },
+  { "path": "operable/2-2/2-2-1", "label": "2.2 충분한 시간 제공", "level": 2 },
+  { "path": "operable/2-3/2-3-1", "label": "2.3 광과민성 발작 예방", "level": 2 },
+  { "path": "operable/2-4/2-4-1", "label": "2.4 쉬운 내비게이션", "level": 2 },
+  { "path": "operable/2-5/2-5-1", "label": "2.5 입력 방식", "level": 2 },
+  { "path": "understandable/index", "label": "3. 이해의 용이성", "level": 1 },
+  { "path": "understandable/3-1/3-1-1", "label": "3.1 가독성", "level": 2 },
+  { "path": "understandable/3-2/3-2-1", "label": "3.2 예측 가능성", "level": 2 },
+  { "path": "understandable/3-3/3-3-1", "label": "3.3 입력 도움", "level": 2 },
+  { "path": "robust/index", "label": "4. 견고성", "level": 1 },
+  { "path": "robust/4-1/4-1-1", "label": "4.1 문법 준수", "level": 2 },
+  { "path": "robust/4-2/4-2-1", "label": "4.2 웹 애플리케이션 접근성", "level": 2 },
+  { "path": "for-works/index", "label": "5. KWCAG 이해와 실무 적용", "level": 1 },
+  { "path": "for-works/working-reference", "label": "실무 적용", "level": 2 },
 ];
 
-// MDX 파일에서 YAML 설정 추출 함수
-function extractYaml(content) {
-    const yamlRegex = /^---\s*([\s\S]*?)\s*---/m;
-    const match = content.match(yamlRegex);
-    if (match) {
-        const yamlString = match[1];
-        const yamlData = yaml.load(yamlString);
-        let contentWithoutYaml = content.replace(yamlRegex, '').trim();
+// 오늘 날짜를 YYYY-MM-DD 형식으로 출력
+const today = new Date().toISOString().slice(0, 10);
 
-        // import 구문 삭제
-        const importRegex = /import { Aside, Badge, Card } from '@astrojs\/starlight\/components';\n/g;
-        contentWithoutYaml = contentWithoutYaml.replace(importRegex, '').trim();
+// 파일 읽기 및 내용 병합 함수
+function mergeFiles() {
+  let mergedContent = '';
 
-        return { yaml: yamlData, content: contentWithoutYaml };
+  // 프론트매터 및 import 구문 추가
+  mergedContent += 'import { Aside, Badge, Card } from \'@astrojs/starlight/components\';\n\n';
+
+  filesToMerge.forEach(fileInfo => {
+    const filePath = path.join(__dirname, 'src/content/docs', `${fileInfo.path}.mdx`);
+    let fileContent = '';
+
+    try {
+      fileContent = fs.readFileSync(filePath, 'utf8');
+
+      const pathParts = fileInfo.path.split('/');
+      const lastPart = pathParts.pop();
+
+      let title = fileInfo.label;
+      let headingLevel = '##'; // 기본 2레벨
+
+      if (fileInfo.level === 1) {
+        headingLevel = '#';
+      } else if (fileInfo.level === 2) {
+        headingLevel = '##';
+      } else if (fileInfo.level === 3) {
+        headingLevel = '###';
+      }
+
+      const titleMatch = fileContent.match(/title: (.*)/);
+      if (titleMatch) {
+        title = fileInfo.label;
+      } else if (headingLevel === '#') {
+        title = fileInfo.label;
+      } else if (headingLevel === '##') {
+        title = fileInfo.label;
+      }
+
+      let contentWithoutFrontmatter = fileContent.replace(/---[\s\S]*?---/g, '').replace(/import[\s\S]*?\n\n/g, '');
+      mergedContent += `${headingLevel} ${title}\n`;
+
+      // 제목 아래 내용 추출 및 제목 레벨 조정 (h4부터)
+      let adjustedContent = contentWithoutFrontmatter;
+      if (headingLevel === '###') {
+        adjustedContent = contentWithoutFrontmatter
+          .replace(/^# (.*)/gm, '#### $1')
+          .replace(/^## (.*)/gm, '##### $1')
+          .replace(/^### (.*)/gm, '###### $1');
+      }
+
+      mergedContent += adjustedContent + '\n';
+
+    } catch (error) {
+      // 파일이 존재하지 않는 경우 제목만 추가
+      if (error.code === 'ENOENT') {
+        mergedContent += `## ${fileInfo.label}\n\n`;
+      } else {
+        console.error(`Error reading file ${filePath}: ${error}`);
+      }
     }
-    return { yaml: {}, content };
+  });
+
+  return mergedContent;
 }
 
-// 제목 레벨 조정 함수
-function adjustHeadingLevels(content, levelChange = 1) {
-    const regex = /(#+) (.*)/g;
-    return content.replace(regex, (match, hashes, text) => {
-        const newLevel = Math.min(6, Math.max(1, hashes.length + levelChange));
-        return '#'.repeat(newLevel) + ' ' + text;
-    });
+// 파일 저장 함수
+function saveMergedFile(content) {
+  fs.writeFileSync(mergedFile, content, 'utf8');
+  console.log('File merged successfully!');
 }
 
-// 디렉토리 스캔 함수
-async function scanDirectory(directoryPath) {
-    const files = [];
-    const items = fs.readdirSync(directoryPath);
-
-    for (const item of items) {
-        const itemPath = path.join(directoryPath, item);
-        const stat = fs.statSync(itemPath);
-
-        if (stat.isDirectory()) {
-            // 디렉토리인 경우, 재귀적으로 탐색
-            const subFiles = await scanDirectory(itemPath);
-            files.push(...subFiles);
-        } else if (path.extname(item).toLowerCase() === '.mdx') {
-            // MDX 파일인 경우 파일 경로 추가
-            files.push(path.relative(directoryPath, itemPath));
-        }
-    }
-
-    return files;
-}
-
-// 디렉토리를 스캔하여 중첩된 객체 구조로 반환하는 함수
-async function scanDirectoryNested(directoryPath) {
-    const result = [];
-    const items = fs.readdirSync(directoryPath);
-
-    for (const item of items) {
-        const itemPath = path.join(directoryPath, item);
-        const stat = fs.statSync(itemPath);
-
-        if (stat.isDirectory()) {
-            // 디렉토리인 경우, 재귀적으로 탐색
-            const children = await scanDirectoryNested(itemPath);
-            result.push({ type: 'directory', name: item, path: itemPath, children: children });
-        } else if (path.extname(item).toLowerCase() === '.mdx') {
-            // MDX 파일인 경우 파일 경로 추가
-            result.push({ type: 'file', name: item, path: itemPath });
-        }
-    }
-
-    return result;
-}
-
-
-// YAML frontmatter 생성 함수
-function generateYamlFrontmatter(title, description) {
-    const frontmatter = {
-        title: title,
-        description: description,
-        tableOfContents: false
-        // 필요한 다른 속성들을 추가할 수 있습니다.
-    };
-    return `---\n${yaml.dump(frontmatter)}---\n`;
-}
-
-// 스크립트 실행
-async function main() {
-    // YAML frontmatter 생성
-    const yamlFrontmatter = generateYamlFrontmatter(
-        '웹 접근성을 고려한 콘텐츠 제작기법 2.2',
-        '한국형 웹 콘텐츠 접근성 지침(KWCAG) 2.2를 기반으로'
-    );
-
-    // import 구문 추가
-    const importStatement = `import { Aside, Badge, Card } from '@astrojs/starlight/components'; \n\n`;
-
-    // 병합된 내용
-    let mergedContent = yamlFrontmatter + importStatement;
-
-    for (const section of filesToMerge) {
-        const fullPath = path.join('src/content/docs', section.path + '.mdx');
-        if (fs.existsSync(fullPath)) {
-            try {
-                const fileContent = fs.readFileSync(fullPath, 'utf8');
-                const { yaml: frontmatter, content: mdxContent } = extractYaml(fileContent);
-
-                // index.mdx 파일인 경우 제목 생성을 건너뜁니다.
-                if (section.path.endsWith('index')) {
-                    mergedContent += `# ${section.label}\n\n`;
-                } else {
-                    // 제목 생성
-                    mergedContent += `## ${section.label}\n\n`;
-                }
-
-                // 제목 레벨 조정
-                const adjustedContent = adjustHeadingLevels(mdxContent, 1);
-                mergedContent += adjustedContent + '\n\n';
-            } catch (error) {
-                console.error(`파일을 읽는 중 오류 발생: ${fullPath}, 오류 내용: ${error.message}`);
-            }
-        } else {
-            console.warn(`파일 ${fullPath} 이 존재하지 않습니다. 설정 파일에 정의된 텍스트 레이블을 제목으로 추가합니다.`);
-            mergedContent += `#${section.label}\n\n`;
-        }
-    }
-
-    // 병합된 내용을 파일에 저장
-    fs.writeFileSync(mergedFile, mergedContent, 'utf8');
-    console.log(`MDX 파일이 ${mergedFile }에 병합되었습니다.`);
-
-    const directoryStructure = await scanDirectoryNested('src/content/docs');
-    // console.log(JSON.stringify(directoryStructure, null, 2));
-}
-
-main().catch(error => console.error(error));
+// 전체 스크립트 실행
+const mergedContent = mergeFiles();
+saveMergedFile(mergedContent);
