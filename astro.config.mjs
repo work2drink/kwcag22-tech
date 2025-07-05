@@ -77,7 +77,7 @@ export default defineConfig({
                     items: [
                         {
                             label: '개요',
-                            link: '1'
+                            link: '2'
                         },
                         {
                             label: '2.1 입력장치 접근성',
@@ -133,6 +133,7 @@ export default defineConfig({
                 },
                 {
                     label: '견고성',
+                    link: '4'
                     collapsed: true,
                     items: [
                         {
