@@ -11,7 +11,7 @@ const commonKeywords = "접근성, 제작기법, KWCAG2.2, accessibility, Korean
 
 export default defineConfig({
     site: 'https://work2drink.github.io/kwcag22-tech/',
-    base: process.env.NODE_ENV === 'production' ? '/kwcag22-tech/' : '/',
+    base: process.env.NODE_ENV === 'production' ? '/kwcag22tech/' : '/',
 	integrations: [
         astroExpressiveCode(),
         mdx(),
